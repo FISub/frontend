@@ -1,8 +1,9 @@
 import BannerZero from "./banner-0.jpg";
-import BannerOne from "./banner-1.jpg";
-import BannerTwo from "./banner-2.jpg";
+import hagis from "./hagis.png";
+import suncare from "./suncare.jpg";
+import water from "./waterbanner.jpg";
 
-function BannerIncidator(props) {
+function BannerIncidator(props) { // 베너 하단 "_" 버튼
   return (
     <button
       type="button"
@@ -31,8 +32,8 @@ function BannerImage(props) {
         />
       </div>
       <div className="carousel-caption d-none d-lg-block">
-        <h5>Banner Header</h5>
-        <p>Some representative placeholder content for the banner.</p>
+        <h5>banner</h5>
+        <p>상품이미지 들어갈 예정</p>
       </div>
     </div>
   );
@@ -46,15 +47,17 @@ function Banner() {
       data-bs-ride="carousel"
       style={{ marginTop: "56px" }}
     >
-      <div className="carousel-indicators">
+      <div className="carousel-indicators">  {/* 이미지 개수 조절 */}
         <BannerIncidator index="0" active={true} />
         <BannerIncidator index="1" />
         <BannerIncidator index="2" />
+        <BannerIncidator index="3" />
       </div>
-      <div className="carousel-inner">
+      <div className="carousel-inner">  {/* 배너 이미지 */}
         <BannerImage image={BannerZero} active={true} />
-        <BannerImage image={BannerOne} />
-        <BannerImage image={BannerTwo} />
+        <BannerImage image={water} />
+        <BannerImage image={hagis} />
+        <BannerImage image={suncare} />
       </div>
     </div>
   );
