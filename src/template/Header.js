@@ -17,7 +17,7 @@ function Header() {
   }
 
   return (
-    <header>
+    <header> {/* 네비게이션 바 */}
       <nav className="navbar fixed-top navbar-expand-lg navbar-light bg-white border-bottom">
         <div className="container-fluid">
           <Link className="navbar-brand" to="/" onClick={changeNav}>
@@ -37,10 +37,10 @@ function Header() {
                 </Link>
               </li>
             </ul>
-            <button type="button" className="btn btn-outline-dark me-3 d-none d-lg-inline">
+            {/* <button type="button" className="btn btn-outline-dark me-3 d-none d-lg-inline">
               <FontAwesomeIcon icon={["fas", "shopping-cart"]} />
               <span className="ms-3 badge rounded-pill bg-dark">0</span>
-            </button>
+            </button> */}
             <ul className="navbar-nav mb-2 mb-lg-0">
               <li className="nav-item dropdown">
                 <a

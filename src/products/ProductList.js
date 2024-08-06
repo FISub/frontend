@@ -183,7 +183,7 @@ function ProductList() {
           <div className="d-flex flex-column h-100">
             <div className="row mb-3">
               <div className="col-lg-3 d-none d-lg-block">
-                <select
+                {/* <select
                   className="form-select"
                   aria-label="Default select example"
                   defaultValue=""
@@ -192,10 +192,10 @@ function ProductList() {
                   <option value="1">iPhone X</option>
                   <option value="2">iPhone Xs</option>
                   <option value="3">iPhone 11</option>
-                </select>
+                </select> */}
               </div>
-              <div className="col-lg-9 col-xl-5 offset-xl-4 d-flex flex-row">
-                <div className="input-group">
+              <div className="col-lg-9 col-xl-5 offset-xl-4 d-flex flex-row" style={{display: 'flex'}}>
+                {/* <div className="input-group">
                   <input
                     className="form-control"
                     type="text"
@@ -205,10 +205,11 @@ function ProductList() {
                   <button className="btn btn-outline-dark">
                     <FontAwesomeIcon icon={["fas", "search"]} />
                   </button>
-                </div>
+                </div> */}
                 <button
                   className="btn btn-outline-dark ms-2 d-none d-lg-inline"
                   onClick={changeViewType}
+                  style={{position:'relative', left: '300px'}}
                 >
                   <FontAwesomeIcon
                     icon={["fas", viewType.grid ? "th-list" : "th-large"]}
