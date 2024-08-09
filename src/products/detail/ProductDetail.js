@@ -1,4 +1,4 @@
-import Image from "../../nillkin-case-1.jpg";
+import Image from "../../assets/img/nillkin-case-1.jpg";
 import RelatedProduct from "./RelatedProduct";
 import Ratings from "react-ratings-declarative";
 import { Link } from "react-router-dom";

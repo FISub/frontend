@@ -3,10 +3,10 @@ import FeatureProduct from "./FeatureProduct";
 import ScrollToTopOnMount from "../template/ScrollToTopOnMount";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
-import git_been from "./git_been.jpg";
-import git_eun from "./git_eun.jpg";
-import git_hyeon from "./git_hyeon.png";
-import git_jun from "./git_jun.jpg";
+import git_been from "../assets/img/git_been.jpg";
+import git_eun from "../assets/img/git_eun.jpg";
+import git_hyeon from "../assets/img/git_hyeon.png";
+import git_jun from "../assets/img/git_jun.jpg";
 
 function Landing() {
   return (
@@ -26,7 +26,7 @@ function Landing() {
       <h2 className="text-muted text-center mt-4 mb-3">상품 미리보기(인기 상품)</h2>
       <div className="container pb-5 px-lg-5">
         <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 px-md-5">
-          {Array.from({ length: 6 }, (_, i) => {
+          {Array.from({ length: 1 }, (_, i) => {  // 인기상품 개수 지정 (백에서 받아온 list size만큼)
             return <FeatureProduct key={i} />;
           })}
         </div>

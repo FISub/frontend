@@ -1,4 +1,4 @@
-import Image from "../tissue.webp";
+import Image from "../assets/img/tissue.webp";
 import { Link } from "react-router-dom";
 
 function FeatureProduct() {
