@@ -6,9 +6,9 @@ function Header() {
 
   const [openedDrawer, setOpenedDrawer] = useState(false)
 
-  function toggleDrawer() {
-    setOpenedDrawer(!openedDrawer);
-  }
+  // function toggleDrawer() {
+  //   setOpenedDrawer(!openedDrawer);
+  // }
 
   function changeNav(event) {
     if (openedDrawer) {
@@ -26,14 +26,24 @@ function Header() {
               className="ms-1"
               size="lg"
             />
-            <span className="ms-2 h5">Shop</span>
+            <span className="ms-2 h5">Logo</span>
           </Link>
 
           <div className={"navbar-collapse offcanvas-collapse " + (openedDrawer ? 'open' : '')}>
             <ul className="navbar-nav me-auto mb-lg-0">
               <li className="nav-item">
                 <Link to="/products" className="nav-link" replace onClick={changeNav}>
-                  Explore
+                  상품
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/products" className="nav-link" replace onClick={changeNav}>
+                  상품 등록
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/products" className="nav-link" replace onClick={changeNav}>
+                  관리자 페이지
                 </Link>
               </li>
             </ul>
@@ -73,7 +83,7 @@ function Header() {
             </ul>
           </div>
 
-          <div className="d-inline-block d-lg-none">
+          {/* <div className="d-inline-block d-lg-none">
             <button type="button" className="btn btn-outline-dark">
               <FontAwesomeIcon icon={["fas", "shopping-cart"]} />
               <span className="ms-3 badge rounded-pill bg-dark">0</span>
@@ -81,7 +91,7 @@ function Header() {
             <button className="navbar-toggler p-0 border-0 ms-3" type="button" onClick={toggleDrawer}>
               <span className="navbar-toggler-icon"></span>
             </button>
-          </div>
+          </div> */}
         </div>
       </nav>
     </header>
