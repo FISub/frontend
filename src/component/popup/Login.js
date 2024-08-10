@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../assets/css/popup.css";
+import "../../assets/css/popup.css";
 import axios from "../../api/axios.js";
 
 export default function Login({ isOpen, onClose }) {
