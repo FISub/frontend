@@ -1,12 +1,12 @@
 import Banner from "./Banner";
 import FeatureProduct from "./FeatureProduct";
-import ScrollToTopOnMount from "../template/ScrollToTopOnMount";
+import ScrollToTopOnMount from "../../util/ScrollToTopOnMount";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
-import git_been from "../assets/img/git_been.jpg";
-import git_eun from "../assets/img/git_eun.jpg";
-import git_hyeon from "../assets/img/git_hyeon.png";
-import git_jun from "../assets/img/git_jun.jpg";
+import git_been from "../../assets/img/git_been.jpg";
+import git_eun from "../../assets/img/git_eun.jpg";
+import git_hyeon from "../../assets/img/git_hyeon.png";
+import git_jun from "../../assets/img/git_jun.jpg";
 
 function Landing() {
   return (

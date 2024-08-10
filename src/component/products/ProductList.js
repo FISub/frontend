@@ -3,7 +3,7 @@ import Product from "./Product";
 import ProductH from "./ProductH";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import ScrollToTopOnMount from "../template/ScrollToTopOnMount";
+import ScrollToTopOnMount from "../../util/ScrollToTopOnMount";
 
 const categories = [
   "기타",

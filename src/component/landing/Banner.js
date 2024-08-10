@@ -1,7 +1,7 @@
-import BannerZero from "../assets/img/banner-0.jpg";
-import hagis from "../assets/img/hagis.png";
-import suncare from "../assets/img/suncare.jpg";
-import water from "../assets/img/waterbanner.jpg";
+import BannerZero from "../../assets/img/banner-0.jpg";
+import hagis from "../../assets/img/hagis.png";
+import suncare from "../../assets/img/suncare.jpg";
+import water from "../../assets/img/waterbanner.jpg";
 
 function BannerIncidator(props) { // 베너 하단 "_" 버튼
   return (

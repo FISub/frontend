@@ -1,6 +1,7 @@
-import Image from "../assets/img/tissue.webp";
+import Image from "../../assets/img/tissue.webp";
 import { Link } from "react-router-dom";
 
+// Main화면의 상품 card
 function FeatureProduct() {
   return (
     <div className="col">
