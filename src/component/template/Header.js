@@ -1,19 +1,20 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import Login from "../popup/Login.js";
 
 function Header() {
-
   const [openedDrawer, setOpenedDrawer] = useState(false)
-
-  // function toggleDrawer() {
-  //   setOpenedDrawer(!openedDrawer);
-  // }
+  const [isLoginOpen, setIsLoginOpen] = useState(false); // 로그인 팝업의 상태 관리
 
   function changeNav(event) {
     if (openedDrawer) {
       setOpenedDrawer(false)
     }
+  }
+
+  function toggleLoginPopup(){
+    setIsLoginOpen(!isLoginOpen);
   }
 
   return (
@@ -46,11 +47,7 @@ function Header() {
                   관리자 페이지
                 </Link>
               </li>
-            </ul>
-            {/* <button type="button" className="btn btn-outline-dark me-3 d-none d-lg-inline">
-              <FontAwesomeIcon icon={["fas", "shopping-cart"]} />
-              <span className="ms-3 badge rounded-pill bg-dark">0</span>
-            </button> */}
+            </ul>           
             <ul className="navbar-nav mb-2 mb-lg-0">
               <li className="nav-item dropdown">
                 <a
@@ -69,9 +66,9 @@ function Header() {
                   aria-labelledby="userDropdown"
                 >
                   <li>
-                    <Link to="/" className="dropdown-item" onClick={changeNav}>
+                    <span to="/login" className="dropdown-item" onClick={toggleLoginPopup}>
                       Login
-                    </Link>
+                    </span>
                   </li>
                   <li>
                     <Link to="/" className="dropdown-item" onClick={changeNav}>
@@ -94,6 +91,8 @@ function Header() {
           </div> */}
         </div>
       </nav>
+
+      <Login isOpen={isLoginOpen} onClose={toggleLoginPopup} />
     </header>
   );
 }
