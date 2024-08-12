@@ -13,9 +13,9 @@ export default function Login({ isOpen, onClose }) {
     console.log(id); // 추후 삭제
     console.log(pw); // 추후 삭제
     axios
-      .post("/user/login", { id, pw })
+      .post("/member/login", { id, pw })
       .then((res) => {
-        console.log("로그인 성공:", res);
+        console.log("로그인 결과:", res);
       })
       .catch((err) => {
         console.error("로그인 실패:", err);
