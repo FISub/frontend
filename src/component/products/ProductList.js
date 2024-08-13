@@ -6,10 +6,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ScrollToTopOnMount from "../../util/ScrollToTopOnMount";
 
 const categories = [
-  "기타",
-  "식품",
-  "생활용품",
-  "뷰티",
+  {name:"기타",value:0},
+  {name:"비타민/미네랄",value:1},
+  {name:"영양제",value:2},
+  {name:"헬스/다이어트 식품",value:3}
 ];
 
 // const brands = ["Apple", "Samsung", "Google", "HTC"];
@@ -110,15 +110,15 @@ function ProductList() {
       <li className="list-group-item d-none d-lg-block">
         <h5 className="mt-1 mb-2">카테고리</h5>
         <div className="d-flex flex-wrap my-2">
-          {categories.map((v, i) => {
+          {categories.map((category, i) => {
             return (
               <Link
-                key={i}
+                key={category}
                 to="/products"
                 className="btn btn-sm btn-outline-dark rounded-pill me-2 mb-2"
                 replace
               >
-                {v}
+                {category.name}
               </Link>
             );
           })}
@@ -145,15 +145,15 @@ function ProductList() {
 
       <div className="h-scroller d-block d-lg-none">
         <nav className="nav h-underline">
-          {categories.map((v, i) => {
+          {categories.map((category, i) => {
             return (
-              <div key={i} className="h-link me-2">
+              <div key={category} className="h-link me-2">
                 <Link
                   to="/products"
                   className="btn btn-sm btn-outline-dark rounded-pill"
                   replace
                 >
-                  {v}
+                  {category.name}
                 </Link>
               </div>
             );

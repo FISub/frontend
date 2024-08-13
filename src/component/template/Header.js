@@ -39,7 +39,7 @@ function Header() {
               </li>
               <li className="nav-item">
                 <Link to="/products" className="nav-link" replace onClick={changeNav}>
-                  상품 등록
+                  사업자 페이지
                 </Link>
               </li>
               <li className="nav-item">
