@@ -4,6 +4,7 @@ import axios from "../../../api/axios.js";
 import "../../../assets/css/productDetail.css";
 import { categoryName } from "../../../util/FunctionUtil.js";
 import ScrollToTopOnMount from "../../../util/ScrollToTopOnMount";
+import Period from "./Period.js";
 import Review from "./Review";
 
 function ProductDetail() {
@@ -61,40 +62,7 @@ function ProductDetail() {
           <div className="period-box">
             <div className="period-text fw-600">배송 주기</div>
             <hr />
-            <div style={{ width: "100%" }}>
-              <div className="row g-3 mb-4 grid-box">
-                <div className="col">
-                  <button className="btn btn-outline-dark py-2 w-100 h-50">
-                    1주
-                  </button>
-                </div>
-                <div className="col">
-                  <button className="btn btn-outline-dark py-2 w-100 h-50">
-                    2주
-                  </button>
-                </div>
-                <div className="col">
-                  <button className="btn btn-outline-dark py-2 w-100 h-50">
-                    3주
-                  </button>
-                </div>
-                <div className="col">
-                  <button className="btn btn-outline-dark py-2 w-100 h-50">
-                    1달
-                  </button>
-                </div>
-                <div className="col">
-                  <button className="btn btn-outline-dark py-2 w-100 h-50">
-                    2달
-                  </button>
-                </div>
-                <div className="col">
-                  <button className="btn btn-outline-dark py-2 w-100 h-50">
-                    3달
-                  </button>
-                </div>
-              </div>
-            </div>
+            <Period/>
           </div>
         </div>
         <div className="description-box">
