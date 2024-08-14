@@ -33,11 +33,10 @@ function Review({ prodNum }) {
   const handleSubmit = () => {
     axios
       .post(`/main/reviewInsert`, {
-        memNum: "mem0000003", // 추후 세션, localStorage에 저장된 memNum으로 변경 예정
         prodNum: prodNum,
         revStar: newReview.star,
         revCont: newReview.content,
-      })
+      }, { withCredentials: true })
       .then((res) => {
         setReviews((prev) => [res, ...prev]);
         setNewReview({ star: 0, content: "" }); // 입력 초기화
