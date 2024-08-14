@@ -1,50 +1,29 @@
-import Image from "../../assets/img/nillkin-case-1.jpg";
+import React from 'react';
 import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-function Product(props) {
-  const price = 10000;
-  let percentOff;
-  let offPrice = `${price}₩`;
-
-  if (props.percentOff && props.percentOff > 0) {
-    percentOff = (
-      <div
-        className="badge bg-dim py-2 text-white position-absolute"
-        style={{ top: "0.5rem", right: "0.5rem" }}
-      >
-        {props.percentOff}% OFF
-      </div>
-    );
-
-    offPrice = (
-      <>
-        <del>{price}₩</del> {price - (props.percentOff * price) / 100}₩
-      </>
-    );
-  }
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { truncateName } from '../../util/FunctionUtil.js';
+function Product({ product }) {
   return (
-    <div className="col">
+    <div className="feature-product-item">
       <div className="card shadow-sm">
-        <Link to="/products/1" href="!#" replace>
-          {percentOff}
-          <img
-            className="card-img-top bg-dark cover"
-            height="200"
-            alt=""
-            src={Image}
-          />
-        </Link>
+        <img
+          className="card-img-top bg-dark cover"
+          height="260"
+          alt={product.prodName}
+          src={product.prodImg} 
+        />
         <div className="card-body">
-          <h5 className="card-title text-center text-dark text-truncate">
-            생수
+          <h5 className="card-title text-center text-overflow">
+            {truncateName(product.prodName)}
           </h5>
-          <p className="card-text text-center text-muted mb-0">{offPrice}</p>
-          <div className="d-grid d-block">
-            <button className="btn btn-outline-dark mt-3">
-              <FontAwesomeIcon icon={["fas", "cart-plus"]} /> 상세보기
-            </button>
+          <p className="card-text text-center text-muted">
+            {product.prodPrice.toLocaleString()}원
+          </p>
+          <div className="d-grid gap-2">
+            <Link to={`/products/${product.prodNum}`} className="btn btn-outline-dark" replace>
+              <FontAwesomeIcon icon={["fas", "cart-plus"]} style={{marginRight: '5px'}}/>
+              Detail
+            </Link>
           </div>
         </div>
       </div>
