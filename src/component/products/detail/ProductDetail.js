@@ -1,66 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom/cjs/react-router-dom.min";
+import { useParams } from "react-router-dom";
 import axios from "../../../api/axios.js";
-import ScrollToTopOnMount from "../../../util/ScrollToTopOnMount";
-import { categoryName } from "../../../util/FunctionUtil.js";
 import "../../../assets/css/productDetail.css";
-import { PiStarFill, PiStarLight } from "react-icons/pi";
+import { categoryName } from "../../../util/FunctionUtil.js";
+import ScrollToTopOnMount from "../../../util/ScrollToTopOnMount";
+import Review from "./Review";
 
 function ProductDetail() {
-  const { slug } = useParams(); // URL의 상품 num값
+  const { slug } = useParams(); 
   const [product, setProduct] = useState(null);
-  const [reviews, setReviews] = useState([]);
-  const [rating, setRating] = useState(0);
-  const [newReview, setNewReview] = useState({
-    star: 0,
-    content: "",
-  });
-
-  const handleStarClick = (value) => {
-    setRating(value);
-    setNewReview((prev) => ({ ...prev, star: value }));
-  
-  };
-
-  const handleInputChange = (e) => {
-    setNewReview((prev) => ({ ...prev, content: e.target.value }));
-  };
-
-  const handleSubmit = () => {
-    console.log(product.prodNum);
-    console.log(newReview.star);
-    console.log(newReview.content);
-    axios
-      .post(`/main/reviewInsert`, {
-        memNum: "mem0000003", // 추후 세션, localStorage에 저장된 memNum으로 변경 예정
-        prodNum: product.prodNum,
-        revStar: newReview.star,
-        revCont: newReview.content,
-      })
-      .then((res) => {
-        // 새 리뷰 추가 후 상태 업데이트
-        setReviews((prev) => [res, ...prev]);
-        setNewReview({ star: 0, content: "" }); // 입력 초기화
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
 
   useEffect(() => {
     axios
-      .get(`/main/productDetail/${slug}`)
+      .get(`/main/productDetail/${slug}`, { withCredentials: true })
       .then((res) => {
         setProduct(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-    axios
-      .get(`/main/review/${slug}`)
-      .then((res) => {
-        setReviews(res);
       })
       .catch((err) => {
         console.log(err);
@@ -68,7 +22,7 @@ function ProductDetail() {
   }, [slug]);
 
   if (!product) {
-    return <div>Loading...</div>; // 데이터 로딩 중일 때 로딩 화면을 표시
+    return <div>Loading...</div>; 
   }
 
   return (
@@ -156,66 +110,7 @@ function ProductDetail() {
         <div className="col-md-12 mb-4">
           <hr />
           <h4 className="text-muted my-4">Review</h4>
-
-          <div className="review-card mb-3 p-3 border rounded d-flex">
-            <div className="d-flex align-items-center mb-2"  style={{width:'20%'}}>
-              <div id="myform" style={{display:'flex'}}>
-                <div>
-                  {[...Array(5)].map((_, i) => (
-                    <React.Fragment key={i}>
-                      <div
-                        onClick={() => handleStarClick(i + 1)}
-                        style={{
-                          display: "inline-block",
-                          cursor: "pointer",
-                        }}
-                      >
-                        {i < rating ? (
-                          <PiStarFill className="star-lg star-design" />
-                        ) : (
-                          <PiStarLight className="star-lg star-design" />
-                        )}
-                      </div>
-                    </React.Fragment>
-                  ))}
-                </div>
-                <span className="rating">{rating}점</span>
-              </div>
-            </div>
-            <div
-              style={{
-                alignContent: "center",
-                display: "flex",
-                marginLeft: "20px",
-                width:"80%",
-                height:"50px"
-              }}
-            >
-              <input
-                type="text"
-                className="form-control input-large"
-                placeholder="리뷰를 적어주세요."
-                value={newReview.content}
-                onChange={handleInputChange}
-              />
-              <button className="btn btn-primary" onClick={handleSubmit}>
-                Submit
-              </button>
-            </div>
-          </div>
-
-          {reviews.length > 0 ? (
-            reviews.map((review) => (
-              <div
-                key={review.revNum}
-                className="review-card mb-3 p-3 border rounded"
-              >
-                {review.memName}, {review.revStar}, {review.revCont}
-              </div>
-            ))
-          ) : (
-            <p>No reviews available.</p>
-          )}
+          <Review prodNum={product.prodNum} />
         </div>
       </div>
     </div>
