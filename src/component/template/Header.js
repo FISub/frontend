@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import Login from "../popup/Login.js";
+import Logo from "../../assets/img/Logo.png";
 
 function Header() {
   const [openedDrawer, setOpenedDrawer] = useState(false)
@@ -22,16 +23,11 @@ function Header() {
       <nav className="navbar fixed-top navbar-expand-lg navbar-light bg-white border-bottom">
         <div className="container-fluid">
           <Link className="navbar-brand" to="/" onClick={changeNav}>
-            <FontAwesomeIcon
-              icon={["fab", "bootstrap"]}
-              className="ms-1"
-              size="lg"
-            />
-            <span className="ms-2 h5">Logo</span>
+            <img src={Logo} alt="" height="70px"/>
           </Link>
 
           <div className={"navbar-collapse offcanvas-collapse " + (openedDrawer ? 'open' : '')}>
-            <ul className="navbar-nav me-auto mb-lg-0">
+            <ul className="navbar-nav me-auto mb-lg-0" style={{fontSize: '20px', fontWeight: 'bolder'}}>
               <li className="nav-item">
                 <Link to="/products" className="nav-link" replace onClick={changeNav}>
                   상품
@@ -59,7 +55,7 @@ function Header() {
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  <FontAwesomeIcon icon={["fas", "user-alt"]} />
+                  <FontAwesomeIcon icon={["fas", "user-alt"]} style={{width:'30px', height:'20px'}}/>
                 </a>
                 <ul
                   className="dropdown-menu dropdown-menu-end"

@@ -48,9 +48,9 @@ function ProductH({ product, percentOff }) {
                   {offPrice}
                 </span>
                 <div className="mt-auto d-flex">
-                  <button className="btn btn-outline-dark ms-auto">
+                  <Link to={`/products/${product.prodNum}`} className="btn btn-outline-dark ms-auto">
                     <FontAwesomeIcon icon={["fas", "cart-plus"]} /> Detail
-                  </button>
+                  </Link>
                 </div>
               </div>
             </div>

@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { truncateName } from '../../util/FunctionUtil.js';
+
 function Product({ product }) {
   return (
     <div className="feature-product-item">

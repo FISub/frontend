@@ -8,10 +8,9 @@ function FeatureProduct() {
 
   useEffect(() => {
     // API 호출하여 데이터 가져오기
-    axios.get('/main/preview')
+    axios.get('/main/productPreview')
       .then(res => {
         // API 응답의 데이터 구조 확인
-        console.log(res); // 콘솔에서 응답 데이터 확인
         setProducts(res); // 데이터를 상태로 저장
       })
       .catch(error => {
@@ -33,7 +32,7 @@ function FeatureProduct() {
                 src={product.prodImg} 
               />
               <div className="card-body">
-                <h5 className="card-title text-center text-overflow">{truncateName(product.prodName)}</h5>
+                <h5 className="card-title text-center text-overflow" style={{fontSize:'18px'}}>{truncateName(product.prodName)}</h5>
                 <p className="card-text text-center text-muted">
                   {product.prodPrice.toLocaleString()}원
                 </p>
