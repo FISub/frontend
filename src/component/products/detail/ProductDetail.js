@@ -11,7 +11,7 @@ function ProductDetail() {
 
   useEffect(() => {
     axios
-      .get(`/main/productDetail/${slug}`)
+      .get(`/main/productDetail/${slug}`, { withCredentials: true })
       .then((res) => {
         setProduct(res);
       })
