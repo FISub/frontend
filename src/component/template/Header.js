@@ -34,7 +34,7 @@ function Header() {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link to="/products" className="nav-link" replace onClick={changeNav}>
+                <Link to="/business" className="nav-link" replace onClick={changeNav}>
                   사업자 페이지
                 </Link>
               </li>

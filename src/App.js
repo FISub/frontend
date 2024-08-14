@@ -4,6 +4,7 @@ import Landing from "./component/landing/Landing";
 import ProductDetail from "./component/products/detail/ProductDetail";
 import ProductList from "./component/products/ProductList";
 import Template from "./component/template/Template";
+import Biz from "./component/products/Biz";
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
           <Route path="/" exact component={Landing} />
           <Route path="/products" exact component={ProductList} />
           <Route path="/products/:slug" component={ProductDetail} />
-          {/* 추가적인 라우트 설정 */}
+          <Route path="/business" component={Biz} />
         </Switch>
       </Template>
     </Router>
