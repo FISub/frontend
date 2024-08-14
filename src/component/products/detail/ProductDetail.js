@@ -2,18 +2,65 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import axios from "../../../api/axios.js";
 import ScrollToTopOnMount from "../../../util/ScrollToTopOnMount";
-import RelatedProduct from "./RelatedProduct";
-import {categoryName} from "../../../util/FunctionUtil.js";
+import { categoryName } from "../../../util/FunctionUtil.js";
+import "../../../assets/css/productDetail.css";
+import { PiStarFill, PiStarLight } from "react-icons/pi";
 
 function ProductDetail() {
   const { slug } = useParams(); // URL의 상품 num값
   const [product, setProduct] = useState(null);
+  const [reviews, setReviews] = useState([]);
+  const [rating, setRating] = useState(0);
+  const [newReview, setNewReview] = useState({
+    star: 0,
+    content: "",
+  });
+
+  const handleStarClick = (value) => {
+    setRating(value);
+    setNewReview((prev) => ({ ...prev, star: value }));
+  
+  };
+
+  const handleInputChange = (e) => {
+    setNewReview((prev) => ({ ...prev, content: e.target.value }));
+  };
+
+  const handleSubmit = () => {
+    console.log(product.prodNum);
+    console.log(newReview.star);
+    console.log(newReview.content);
+    axios
+      .post(`/main/reviewInsert`, {
+        memNum: "mem0000003", // 추후 세션, localStorage에 저장된 memNum으로 변경 예정
+        prodNum: product.prodNum,
+        revStar: newReview.star,
+        revCont: newReview.content,
+      })
+      .then((res) => {
+        // 새 리뷰 추가 후 상태 업데이트
+        setReviews((prev) => [res, ...prev]);
+        setNewReview({ star: 0, content: "" }); // 입력 초기화
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   useEffect(() => {
     axios
       .get(`/main/productDetail/${slug}`)
       .then((res) => {
         setProduct(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    axios
+      .get(`/main/review/${slug}`)
+      .then((res) => {
+        setReviews(res);
       })
       .catch((err) => {
         console.log(err);
@@ -39,88 +86,136 @@ function ProductDetail() {
             </div>
           </div>
         </div>
-        <div className="col-lg-5">
-          <div className="row g-3 mb-4">
-            <div className="col">
-              <button className="btn btn-outline-dark py-2 w-100">
-                1주
-              </button>
-            </div>
-            <div className="col">
-              <button className="btn btn-outline-dark py-2 w-100">
-                2주
-              </button>
-            </div>
-            <div className="col">
-              <button className="btn btn-outline-dark py-2 w-100">
-                3주
-              </button>
-            </div>
-            <div className="col">
-              <button className="btn btn-outline-dark py-2 w-100">
-                1달
-              </button>
-            </div>
-            <div className="col">
-              <button className="btn btn-outline-dark py-2 w-100">
-                2달
-              </button>
-            </div>
-            <div className="col">
-              <button className="btn btn-outline-dark py-2 w-100">
-                3달
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <div>
-          <div className="d-flex flex-column h-100">
-            <h2 className="mb-1">{product.prodName}</h2>
+        <div className="col-lg-5 dir-flex" style={{ width: "50%" }}>
+          <div className="dir-flex h-100">
+            <h2 className="mb-1 fw-600">{product.prodName}</h2>
             <h4 className="text-muted mb-4">
               {product.prodPrice.toLocaleString()}원
             </h4>
 
             <h4 className="mb-0">Details</h4>
-            <hr />
+            <hr className="hr_margin" />
             <dl className="row">
               <dt className="col-sm-4">Code</dt>
-              <dd className="col-sm-8 mb-3">{product.prodNum}</dd>
+              <dd className="col-sm-8 mb-2">{product.prodNum}</dd>
 
               <dt className="col-sm-4">Category</dt>
-              <dd className="col-sm-8 mb-3">{categoryName(product.prodCat)}</dd>
+              <dd className="col-sm-8">{categoryName(product.prodCat)}</dd>
             </dl>
-
-            <h4 className="mb-0">Description</h4>
-            <hr />
-            <p className="lead flex-shrink-0">
-              <small>
-                Nature (TPU case) use environmental non-toxic TPU, silky smooth
-                and ultrathin. Glittering and translucent, arbitrary rue
-                reserved volume button cutouts, easy to operate. Side frosted
-                texture anti-slipping, details show its concern; transparent
-                frosted logo shows its taste. The release of self, the flavor of
-                life. Nillkin launched Nature transparent soft cover, only to
-                retain the original phone style. Subverting tradition,
-                redefinition. Thinner design Environmental texture better hand
-                feeling.
-              </small>
-            </p>
           </div>
+
+          <div className="period-box">
+            <div className="period-text fw-600">배송 주기</div>
+            <hr />
+            <div style={{ width: "100%" }}>
+              <div className="row g-3 mb-4 grid-box">
+                <div className="col">
+                  <button className="btn btn-outline-dark py-2 w-100 h-50">
+                    1주
+                  </button>
+                </div>
+                <div className="col">
+                  <button className="btn btn-outline-dark py-2 w-100 h-50">
+                    2주
+                  </button>
+                </div>
+                <div className="col">
+                  <button className="btn btn-outline-dark py-2 w-100 h-50">
+                    3주
+                  </button>
+                </div>
+                <div className="col">
+                  <button className="btn btn-outline-dark py-2 w-100 h-50">
+                    1달
+                  </button>
+                </div>
+                <div className="col">
+                  <button className="btn btn-outline-dark py-2 w-100 h-50">
+                    2달
+                  </button>
+                </div>
+                <div className="col">
+                  <button className="btn btn-outline-dark py-2 w-100 h-50">
+                    3달
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="description-box">
+          <h4 className="mb-0">Description</h4>
+          <hr />
+          <p className="lead flex-shrink-0">
+            <small>{product.prodIntro}</small>
+          </p>
         </div>
       </div>
 
       <div className="row">
         <div className="col-md-12 mb-4">
           <hr />
-          <h4 className="text-muted my-4">Related products</h4>
-          <div className="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-3">
-            {Array.from({ length: 4 }, (_, i) => {
-              return (
-                <RelatedProduct key={i} percentOff={i % 2 === 0 ? 15 : null} />
-              );
-            })}
+          <h4 className="text-muted my-4">Review</h4>
+
+          <div className="review-card mb-3 p-3 border rounded d-flex">
+            <div className="d-flex align-items-center mb-2"  style={{width:'20%'}}>
+              <div id="myform" style={{display:'flex'}}>
+                <div>
+                  {[...Array(5)].map((_, i) => (
+                    <React.Fragment key={i}>
+                      <div
+                        onClick={() => handleStarClick(i + 1)}
+                        style={{
+                          display: "inline-block",
+                          cursor: "pointer",
+                        }}
+                      >
+                        {i < rating ? (
+                          <PiStarFill className="star-lg star-design" />
+                        ) : (
+                          <PiStarLight className="star-lg star-design" />
+                        )}
+                      </div>
+                    </React.Fragment>
+                  ))}
+                </div>
+                <span className="rating">{rating}점</span>
+              </div>
+            </div>
+            <div
+              style={{
+                alignContent: "center",
+                display: "flex",
+                marginLeft: "20px",
+                width:"80%",
+                height:"50px"
+              }}
+            >
+              <input
+                type="text"
+                className="form-control input-large"
+                placeholder="리뷰를 적어주세요."
+                value={newReview.content}
+                onChange={handleInputChange}
+              />
+              <button className="btn btn-primary" onClick={handleSubmit}>
+                Submit
+              </button>
+            </div>
           </div>
+
+          {reviews.length > 0 ? (
+            reviews.map((review) => (
+              <div
+                key={review.revNum}
+                className="review-card mb-3 p-3 border rounded"
+              >
+                {review.memName}, {review.revStar}, {review.revCont}
+              </div>
+            ))
+          ) : (
+            <p>No reviews available.</p>
+          )}
         </div>
       </div>
     </div>
