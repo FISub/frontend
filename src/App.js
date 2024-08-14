@@ -6,8 +6,6 @@ import ProductList from "./component/products/ProductList";
 import Template from "./component/template/Template";
 
 function App() {
-  
-
   return (
     <Router>
       <Template>

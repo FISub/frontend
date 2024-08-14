@@ -22,9 +22,8 @@ function ProductList() {
   useEffect(() => {
     const categoryParam = selectedCategory !== null && selectedCategory !== -99999 ? `category=${selectedCategory}` : '';
     axios
-      .get(`/main/allProduct?${categoryParam}`)
+      .get(`/main/productAll?${categoryParam}`)
       .then((res) => {
-        console.log(res);
         setProducts(res);
       })
       .catch((err) => {
@@ -40,8 +39,12 @@ function ProductList() {
     setSelectedCategory(categoryValue);
   }
 
+  if (!products) {
+    return <div>Loading...</div>; // 데이터 로딩 중일 때 로딩 화면을 표시
+  }
+
   return (
-    <div className="container mt-5 py-4 px-xl-5">
+    <div className="container py-4 px-xl-5" style={{marginTop: '100px'}}>
       <ScrollToTopOnMount />
       <ul className="list-group list-group-flush rounded">
         <li className="list-group-item d-none d-lg-block">
