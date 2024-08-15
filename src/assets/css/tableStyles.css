@@ -1,0 +1,65 @@
+/* tableStyles.css */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Arial, sans-serif';
+  background-color: #ffffff;
+}
+
+thead {
+  background-color: #4A90E2;
+  color: white;
+  text-align: left;
+}
+
+th, td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  font-weight: 600;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tbody > tr:hover {
+  background-color: #e6f7ff;
+  cursor: pointer;
+}
+
+td {
+  color: #333;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  table, thead, tbody, th, td, tr {
+    display: block;
+  }
+
+  tr {
+    margin-bottom: 15px;
+  }
+
+  th, td {
+    text-align: right;
+    padding-left: 50%;
+    position: relative;
+  }
+
+  th::before, td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  thead {
+    display: none;
+  }
+}
