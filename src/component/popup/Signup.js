@@ -86,8 +86,8 @@ export default function Signup({ isOpen, onClose }) {
         alert("회원가입 완료 , 해당 계정으로 로그인 해 주세요.");
         onClose();
       })
-      .catch((error) => {
-        setError("회원가입에 실패했습니다. 정보를 확인하세요."+ error);
+      .catch(() => {
+        setError("회원가입에 실패했습니다. 정보를 확인하세요.");
       });
   }
 
@@ -104,7 +104,7 @@ export default function Signup({ isOpen, onClose }) {
         <div className="close_popup" onClick={onClose}>
           <img src={close_window} alt="닫기" className="close_img" />
         </div>
-        <div className="popup_body">
+        <div className="signup-popup_body">
           <h2>회원가입</h2>
           <div className="login-form">
             <label htmlFor="id">ID:</label>
