@@ -11,6 +11,7 @@ const Subscriptions = () => {
     const fetchSubscriptions = async () => {
       try {
         const response = await axios.get('/member/sublist/get', { withCredentials: true });
+        console.log(response);
         setSubscriptions(response.data);
       } catch (err) {
         console.error("Error fetching subscriptions:", err);

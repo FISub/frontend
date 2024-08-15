@@ -99,12 +99,12 @@ export default function Signup({ isOpen, onClose }) {
   }
 
   return (
-    <div className="signup_popup_container" onClick={onClose}>
-      <div className="signup_popup_main" onClick={(e) => e.stopPropagation()}>
+    <div className="popup_container" onClick={onClose}>
+      <div className="popup_main_fit" onClick={(e) => e.stopPropagation()}>
         <div className="close_popup" onClick={onClose}>
           <img src={close_window} alt="닫기" className="close_img" />
         </div>
-        <div className="signup-popup_body">
+        <div className="popup_body_fit">
           <h2>회원가입</h2>
           <div className="login-form">
             <label htmlFor="id">ID:</label>

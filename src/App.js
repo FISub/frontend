@@ -1,10 +1,10 @@
 import React from 'react';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
+import MemberManage from "./component/admin/MemberManage";
+import ProductManage from "./component/admin/ProductManage";
 import Landing from "./component/landing/Landing";
 import ProductDetail from "./component/products/detail/ProductDetail";
 import ProductList from "./component/products/ProductList";
-import MemberManage from "./component/admin/MemberManage";
-import ProductManage from "./component/admin/ProductManage";
 import Subscriptions from './component/Subscriptions';
 import Dashboard from "./component/admin/Dashboard";
 import Template from "./component/template/Template";
