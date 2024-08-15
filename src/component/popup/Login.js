@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "../../assets/css/popup.css";
 import axios from "../../api/axios.js";
 import useAuthStore from "../../store/useAuthStore";
+import close_window from "../../assets/img/close-window.png";
 
 export default function Login({ isOpen, onClose }) {
   // 입력 필드 상태 관리
@@ -59,8 +60,11 @@ export default function Login({ isOpen, onClose }) {
   }
 
   return (
-    <div className="popup_container" onClick={onClose}>
+    <div className="popup_container"  onClick={onClose}>
       <div className="popup_main" onClick={(e) => e.stopPropagation()}>
+      <div className="close_popup" onClick={onClose}>
+        <img src={close_window} alt="" className="close_img" />
+      </div>
         <div className="popup_body">
           ID :{" "}
           <input

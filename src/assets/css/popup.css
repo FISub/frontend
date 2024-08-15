@@ -29,3 +29,33 @@
     padding: 20px;
     border-radius: 5px;
 }
+
+.popup_main_long{
+    position: absolute;
+    top: 50%;
+    left: 45%;
+    transform: translate(-50%, -30%);
+    display: flex;
+    flex-direction: column;
+  
+    width: 530px;
+    height: 60%;
+    background-color: transparent;
+}
+.popup_body_long{
+    width: 700px;
+    height: 80%;
+    background-color: white;
+    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.close_popup{
+    position: absolute;
+    margin-left: 700px;
+    cursor: pointer;
+}
+.close_img{
+    width: 45px;
+}
