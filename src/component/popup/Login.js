@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import "../../assets/css/popup.css";
 import axios from "../../api/axios.js";
+import useAuthStore from "../../store/useAuthStore";
 
 export default function Login({ isOpen, onClose }) {
   // 입력 필드 상태 관리
   const [id, setId] = useState("");
   const [pw, setPw] = useState("");
+  const { loginAuth } = useAuthStore();
 
   if (!isOpen) return null; // 팝업이 열리지 않으면 아무것도 렌더링하지 않음
 
@@ -16,6 +18,9 @@ export default function Login({ isOpen, onClose }) {
       .post("/auth/login", {id, pw} , { withCredentials: true })
       .then((res) => {
         console.log("로그인 결과:", res);
+        const { memNum, memId, memType } = res;
+        loginAuth({memNum, memId, memType});
+        onClose();
       })
       .catch((err) => {
         console.error("로그인 실패:", err);
@@ -46,6 +51,13 @@ export default function Login({ isOpen, onClose }) {
       });
   }
 
+  function handleKeyDown(e) {
+    if (e.key === "Enter") {
+      e.preventDefault(); // 기본 Enter 동작 방지
+      login(); // 로그인 함수 호출
+    }
+  }
+
   return (
     <div className="popup_container" onClick={onClose}>
       <div className="popup_main" onClick={(e) => e.stopPropagation()}>
@@ -56,6 +68,7 @@ export default function Login({ isOpen, onClose }) {
             placeholder="ID"
             value={id}
             onChange={(e) => setId(e.target.value)}
+            onKeyDown={handleKeyDown}
           />{" "}
           <br />
           PW :{" "}
@@ -64,6 +77,7 @@ export default function Login({ isOpen, onClose }) {
             placeholder="Password"
             value={pw}
             onChange={(e) => setPw(e.target.value)}
+            onKeyDown={handleKeyDown}
           />
           <br />
           <button onClick={login}>로그인</button>
