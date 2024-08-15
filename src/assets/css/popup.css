@@ -11,7 +11,7 @@
 }
 .popup_main{
     position: absolute;
-    top: 50%;
+    top: 30%;
     left: 45%;
     transform: translate(-50%, -30%);
     display: flex;
@@ -27,19 +27,19 @@
     background-color: white;
     box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
     padding: 20px;
-    border-radius: 5px;
+    border-radius: 10px;
 }
 
 .popup_main_long{
     position: absolute;
-    top: 50%;
+    top: 30%;
     left: 45%;
     transform: translate(-50%, -30%);
     display: flex;
     flex-direction: column;
   
     width: 530px;
-    height: 60%;
+    height: 80%;
     background-color: transparent;
 }
 .popup_body_long{
@@ -48,7 +48,8 @@
     background-color: white;
     box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
     padding: 20px;
-    border-radius: 5px;
+    border-radius: 10px;
+
 }
 
 .close_popup{
@@ -58,4 +59,59 @@
 }
 .close_img{
     width: 45px;
+}
+
+.payCard-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    height: auto;
+    cursor: pointer;
+}
+
+.payCard-image {
+    width: 80%;
+    height: auto;
+}
+
+.payCard-text {
+    position: absolute;
+    top: 75%; 
+    left: 40%; 
+    transform: translate(-50%, -50%);
+    color: white; 
+    font-size: 25px; 
+    font-weight: bold; 
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7); 
+}
+.payCard-box{
+    overflow-y: auto;
+    max-height: 470px;
+}
+.test{
+    text-align: center;
+    font-weight: bolder;
+    font-size: 30px;
+}
+.payCard-blurred {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.payCard-blurred .payCard-image {
+    filter: blur(6px); 
+}
+.payCard-plus {
+    position: absolute;
+    top: 50%; 
+    left: 48%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7); 
 }
