@@ -13,15 +13,22 @@ function SelectPayment({ period, onClose }) {
   const [showInsertPayment, setShowInsertPayment] = useState(false);
 
   useEffect(() => {
-    axios.get(`/main/paymentAllByMember`, { withCredentials: true })
-    .then((res) => {
-      setPayment(res);
-    }) 
-    .catch((err) => {
-      console.log(err);
-    })
-
+    fetchPayments();
   }, []);
+
+  function handlePaymentAdded() {
+    fetchPayments(); 
+  }
+
+  const fetchPayments = () => {
+    axios.get(`/main/paymentAllByMember`, { withCredentials: true })
+      .then((res) => {
+        setPayment(res); 
+      }) 
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   function subscription(period, payNum){
     console.log(period, payNum);
@@ -32,7 +39,7 @@ function SelectPayment({ period, onClose }) {
   }
 
   if (showInsertPayment) {
-    return <InsertPayment onClose={() => setShowInsertPayment(false)} />;
+    return <InsertPayment onClose={() => setShowInsertPayment(false)} onPaymentAdded={handlePaymentAdded}/>;
   }
 
   return (
