@@ -1,0 +1,98 @@
+.payCard-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    height: auto;
+    cursor: pointer;
+}
+
+.payCard-image {
+    width: 80%;
+    height: auto;
+}
+
+.payCard-text {
+    position: absolute;
+    top: 75%; 
+    left: 40%; 
+    transform: translate(-50%, -50%);
+    color: white; 
+    font-size: 25px; 
+    font-weight: bold; 
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7); 
+}
+.payCard-box{
+    overflow-y: auto;
+    max-height: 470px;
+}
+.payCard-blurred {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.payCard-blurred .payCard-image {
+    filter: blur(6px); 
+}
+.payCard-plus {
+    position: absolute;
+    top: 50%; 
+    left: 48%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7); 
+}
+
+/* InsertPayment 컴포넌트에 적용할 CSS */
+.payCard-insert {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30px;
+}
+
+.payCard-insert-tr {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px; /* 줄 간격을 설정합니다. */
+    justify-self: center;
+}
+
+.payCard-insert-th {
+    width: 25%; /* 제목 열의 너비를 설정합니다. */
+    font-size: 20px;
+    margin-left: 10px;
+}
+
+.payCard-insert-td {
+    width: 75%; /* 내용 열의 너비를 설정합니다. */
+    display: flex;
+    gap: 5px; /* 입력 필드 간의 간격을 설정합니다. */
+}
+
+.payCard-insert-td input {
+    width: 80px; /* 입력 필드의 너비를 설정합니다. */
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: center; /* 입력 필드의 내용을 중앙 정렬합니다. */
+}
+
+.submitPayment {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .submitPayment:hover {
+    background-color: #0056b3;
+  }
