@@ -13,7 +13,7 @@ function SelectPayment({ period, onClose }) {
   const [showInsertPayment, setShowInsertPayment] = useState(false);
 
   useEffect(() => {
-    axios.get(`/main/paymentAllByMember`,{}, { withCredentials: true })
+    axios.get(`/main/paymentAllByMember`, { withCredentials: true })
     .then((res) => {
       setPayment(res);
     }) 

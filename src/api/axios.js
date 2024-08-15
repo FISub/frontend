@@ -1,36 +1,34 @@
-import axios from 'axios';
-
-
+import axios from "axios";
 
 const api = axios.create({
-  baseURL: 'http://localhost:8080', 
-  timeout: 10000, 
+  baseURL: "http://localhost:8080",
+  timeout: 10000,
   headers: {
-    'Content-Type': 'application/json',
-  }
+    "Content-Type": "application/json",
+  },
 });
 
 // request
 api.interceptors.request.use(
-  config => {
-    const token = localStorage.getItem('token'); 
+  (config) => {
+    const token = localStorage.getItem("token");
     if (token) {
-      config.headers['Authorization'] = `Bearer ${token}`; 
+      config.headers["Authorization"] = `Bearer ${token}`;
     }
     return config;
   },
-  err => {
+  (err) => {
     return Promise.reject(err);
   }
 );
 
 // response
 api.interceptors.response.use(
-  response => {
-    const res = response.data
+  (response) => {
+    const res = response.data;
     return res;
   },
-  err => {
+  (err) => {
     return Promise.reject(err);
   }
 );
