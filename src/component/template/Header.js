@@ -5,7 +5,7 @@ import Logo from "../../assets/img/Logo.png";
 import useAuthStore from "../../store/useAuthStore.js";
 import Login from "../popup/Login.js";
 import UserInfo from "../popup/UserInfo.js";
-import Signup from "../popup/Signup.js"
+import Signup from "../popup/Signup.js";
 import axios from "../../api/axios.js";
 
 function Header() {
@@ -36,7 +36,6 @@ function Header() {
     setIsSignupOpen(false);
   }
   
-
   function logout() {
     axios
       .post("/auth/logout", {}, { withCredentials: true })
@@ -51,7 +50,6 @@ function Header() {
 
   return (
     <header>
-      {" "}
       <nav className="navbar fixed-top navbar-expand-lg navbar-light bg-white border-bottom">
         <div className="container-fluid">
           <Link className="navbar-brand" to="/">
@@ -68,6 +66,14 @@ function Header() {
                   상품
                 </Link>
               </li>
+              {/* 구독 리스트 링크 추가 */}
+              {isLogin && (
+                <li className="nav-item">
+                  <Link to="/member/subscriptions" className="nav-link" replace>
+                    구독 리스트
+                  </Link>
+                </li>
+              )}
             </ul>
             <ul
               className="navbar-nav mb-lg-0 navbar-margin-right"
@@ -173,7 +179,6 @@ function Header() {
                     <>
                       <li>
                         <span
-                          to="/login"
                           className="dropdown-item"
                           onClick={toggleLoginPopup}
                         >
@@ -181,10 +186,10 @@ function Header() {
                         </span>
                       </li>
                       <li>
-                        <span to="/signup" className="dropdown-item"
+                        <span
+                          className="dropdown-item"
                           onClick={toggleSignupPopup}
                         >
-                        
                           Sign Up
                         </span>
                       </li>
@@ -192,7 +197,7 @@ function Header() {
                   ) : (
                     <>
                       <li>
-                        <span // 클릭시 유저 정보보기/수정 뷰
+                        <span
                           className="dropdown-item"
                           onClick={toggleUserInfoPopup}
                         >
@@ -200,7 +205,7 @@ function Header() {
                         </span>
                       </li>
                       <li>
-                        <span // 로그아웃 기능 연결
+                        <span
                           className="dropdown-item"
                           onClick={logout}
                         >
