@@ -4,11 +4,13 @@ import { Link } from "react-router-dom";
 import Logo from "../../assets/img/Logo.png";
 import useAuthStore from "../../store/useAuthStore.js";
 import Login from "../popup/Login.js";
+import Signup from "../popup/Signup.js"
 import axios from "../../api/axios.js";
 
 function Header() {
   const [openedDrawer, setOpenedDrawer] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [isSignupOpen, setIsSignupOpen] = useState(false);
   const { isLogin, memberInfo, logoutAuth } = useAuthStore((state) => ({
     isLogin: state.isLogin,
     memberInfo: state.memberInfo,
@@ -25,9 +27,13 @@ function Header() {
     setIsLoginOpen(!isLoginOpen);
   }
 
+  function toggleSignupPopup() {
+    setIsSignupOpen(!isSignupOpen); // 회원가입 팝업 토글 함수
+  }
+
   function logout() {
     axios
-      .post("/auth/logout")
+      .post("/auth/logout", {}, {withCredentials:true})
       .then((res) => {
         console.log(res);
         logoutAuth();
@@ -166,7 +172,7 @@ function Header() {
                         <span
                           to="/"
                           className="dropdown-item"
-                          onClick={changeNav}
+                          onClick={toggleSignupPopup}
                         >
                           Sign Up
                         </span>
@@ -198,6 +204,7 @@ function Header() {
         </div>
       </nav>
       <Login isOpen={isLoginOpen} onClose={toggleLoginPopup} />
+      <Signup isOpen={isSignupOpen} onClose={toggleSignupPopup} />
     </header>
   );
 }
