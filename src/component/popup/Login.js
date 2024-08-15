@@ -1,100 +1,76 @@
 import React, { useEffect, useState } from "react";
-import "../../assets/css/popup.css";
+import "../../assets/css/loginPopup.css";
 import axios from "../../api/axios.js";
 import useAuthStore from "../../store/useAuthStore";
-import close_window from "../../assets/img/close-window.png";
+import close_window from "../../assets/img/close-window.png"; // X 버튼 이미지
 
 export default function Login({ isOpen, onClose }) {
-  // 입력 필드 상태 관리
   const [id, setId] = useState("");
   const [pw, setPw] = useState("");
+  const [error, setError] = useState(""); 
   const { loginAuth } = useAuthStore();
 
   useEffect(() => {
     if (!isOpen) {
       setId("");
       setPw("");
-    } 
-  }, [isOpen])
-  
-  if (!isOpen) return null; // 팝업이 열리지 않으면 아무것도 렌더링하지 않음
+      setError("");
+    }
+  }, [isOpen]);
+
+  if (!isOpen) return null; 
 
   function login() {
-    console.log(id); // 추후 삭제
-    console.log(pw); // 추후 삭제
     axios
-      .post("/auth/login", {id, pw} , { withCredentials: true })
+      .post("/auth/login", { id, pw }, { withCredentials: true })
       .then((res) => {
-        console.log("로그인 결과:", res);
-        const { memNum, memId, memType } = res;
-        loginAuth({memNum, memId, memType});
+        const { memNum, memId, memType } = res; // 응답 데이터는 res.data에서 가져와야 함
+        loginAuth({ memNum, memId, memType });
         onClose();
       })
       .catch((err) => {
-        console.error("로그인 실패:", err);
-      });
-  }
-
-  function getSession() {
-    axios
-      .get("/auth/sessionInfo", {withCredentials: true})
-      .then((res) => {
-        console.log("세션 정보 : ", res);
-        console.log(document.cookie);
-      })
-      .catch((err) => {
-        console.error("세션 정보 가져오는 중 에러 발생", err);
-        console.log(document.cookie);
-      });
-  }
-
-  function getMemberInfo() {
-    axios
-      .get("/member/info/get", {withCredentials: true})
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.error("회원정보 가져오는 중 에러 발생", err);
+        setError("로그인에 실패했습니다. 아이디와 비밀번호를 확인하세요.");
       });
   }
 
   function handleKeyDown(e) {
     if (e.key === "Enter") {
-      e.preventDefault(); // 기본 Enter 동작 방지
-      login(); // 로그인 함수 호출
+      e.preventDefault();
+      login();
     }
   }
 
   return (
-    <div className="popup_container"  onClick={onClose}>
+    <div className="popup_container" onClick={onClose}>
       <div className="popup_main" onClick={(e) => e.stopPropagation()}>
-      <div className="close_popup" onClick={onClose}>
-        <img src={close_window} alt="" className="close_img" />
-      </div>
+        {/* X 버튼 추가 */}
+        <div className="close_popup" onClick={onClose}>
+          <img src={close_window} alt="닫기" className="close_img" />
+        </div>
         <div className="popup_body">
-          ID :{" "}
-          <input
-            type="text"
-            placeholder="ID"
-            value={id}
-            onChange={(e) => setId(e.target.value)}
-            onKeyDown={handleKeyDown}
-          />{" "}
-          <br />
-          PW :{" "}
-          <input
-            type="password"
-            placeholder="Password"
-            value={pw}
-            onChange={(e) => setPw(e.target.value)}
-            onKeyDown={handleKeyDown}
-          />
-          <br />
-          <button onClick={login}>로그인</button>
-          <button onClick={getSession}>세션 정보 가져오기</button>
-          <br/>
-          <button onClick={getMemberInfo}>유저 정보 불러오기</button>
+          <h2>로그인</h2>
+          <div className="login-form">
+            <label htmlFor="id">ID:</label>
+            <input
+              id="id"
+              type="text"
+              placeholder="아이디 입력"
+              value={id}
+              onChange={(e) => setId(e.target.value)}
+              onKeyDown={handleKeyDown}
+            />
+            <label htmlFor="pw">PW:</label>
+            <input
+              id="pw"
+              type="password"
+              placeholder="비밀번호 입력"
+              value={pw}
+              onChange={(e) => setPw(e.target.value)}
+              onKeyDown={handleKeyDown}
+            />
+            {error && <p className="error-message">{error}</p>}
+            <button onClick={login}>로그인</button>
+          </div>
         </div>
       </div>
     </div>
