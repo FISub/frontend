@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import axios from "../../api/axios.js";
+import "../../assets/css/payCard.css";
 import "../../assets/css/popup.css";
 import close_window from "../../assets/img/close-window.png";
-import formatCardNumber from "../../util/FunctionUtil.js";
 import card from "../../assets/img/default_card.png";
 import plus from "../../assets/img/plus_white.png";
+import formatCardNumber from "../../util/FunctionUtil.js";
+import InsertPayment from "./InsertPayment";
 
 function SelectPayment({ period, onClose }) {
   const [payment, setPayment] = useState([]);
+  const [showInsertPayment, setShowInsertPayment] = useState(false);
 
   useEffect(() => {
     axios
@@ -25,7 +28,11 @@ function SelectPayment({ period, onClose }) {
   }
 
   function addPayCard(){
-    console.log('카드 추가 팝업');
+    setShowInsertPayment(true);
+  }
+
+  if (showInsertPayment) {
+    return <InsertPayment onClose={() => setShowInsertPayment(false)} />;
   }
 
   return (
@@ -35,7 +42,7 @@ function SelectPayment({ period, onClose }) {
           <img src={close_window} alt="" className="close_img" />
         </div>
         <div className="popup_body_long">
-          <div className="test">카드 결제 정보</div>
+          <div className="popup_body_header">결제 정보</div>
           <hr />
           <div className="payCard-box">
             {payment.length > 0 ? (
