@@ -30,6 +30,26 @@ function ProductManage() {
     return <div>{error}</div>;
   }
 
+  const deleteProd = async (prodNum) => {
+    const confirmed = window.confirm("정말로 이 상품을 삭제하시겠습니까?");
+    
+    if (confirmed) {
+      try {
+        axios.post(`/admin/deleteProd`, null, {
+          params: {
+            prodNum: prodNum,
+          },
+        });
+        setProducts((prevProducts) => prevProducts.filter((product) => product.prodNum !== prodNum));
+        alert("상품 삭제가 완료되었습니다.");
+      } catch (error) {
+        console.error("Error deleting product:", error);
+        alert("상품 삭제에 실패했습니다.");
+      }
+    }
+  };
+
+
   return (
     <div className="container mt-5 py-4 px-xl-5">
       <h3 className="text-2xl font-bold mt-5 mb-4">상품 관리</h3>
@@ -43,6 +63,7 @@ function ProductManage() {
             <th className="py-2 px-4 border-b">가격</th>
             <th className="py-2 px-4 border-b">이미지</th>
             <th className="py-2 px-4 border-b">소개</th>
+            <th className="py-2 px-4 border-b">삭제</th>
           </tr>
         </thead>
         <tbody>
@@ -63,6 +84,13 @@ function ProductManage() {
                 <img src={product.prodImg} width="80" height="80" />
               </td>
               <td className="py-2 px-4 border-b">{product.prodIntro}</td>
+              <td className="py-2 px-4 border-b">
+                <button
+                  onClick={() => deleteProd(product.prodNum)}
+                >
+                  삭제
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
