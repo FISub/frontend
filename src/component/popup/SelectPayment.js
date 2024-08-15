@@ -8,7 +8,7 @@ function SelectPayment({ period, onClose }) {
   const [payment, setPayment] = useState([]);
 
   useEffect(() => {
-    axios.get(`/main/paymentAllByMember`, { withCredentials: true })
+    axios.get(`/main/paymentAllByMember`,{}, { withCredentials: true })
     .then((res) => {
       setPayment(res);
     }) 
@@ -18,8 +18,8 @@ function SelectPayment({ period, onClose }) {
   }, []);
 
   return (
-    <div className="popup_container"  onClick={onClose}>
-      <div className="popup_main_long" onClick={(e) => e.stopPropagation()}>
+    <div className="login_popup_container"  onClick={onClose}>
+      <div className="login_popup_main_long" onClick={(e) => e.stopPropagation()}>
       <div className="close_popup" onClick={onClose}>
         <img src={close_window} alt="" className="close_img" />
       </div>
