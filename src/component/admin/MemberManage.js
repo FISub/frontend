@@ -3,7 +3,6 @@ import axios from "../../api/axios.js";
 import ScrollToTopOnMount from "../../util/ScrollToTopOnMount";
 import '../../assets/css/tableStyles.css';
 
-
 function MemberManage() {
   const [members, setMembers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -31,6 +30,26 @@ function MemberManage() {
     return <div>{error}</div>;
   }
 
+  const deleteMem = async (memNum) => {
+    const confirmed = window.confirm("정말로 이 회원을 삭제하시겠습니까?");
+    
+    if (confirmed) {
+      try {
+        await axios.post(`/admin/deleteMem`, null, {
+          params: {
+            memNum: memNum,
+          },
+        });
+        setMembers((prevMembers) => prevMembers.filter((member) => member.memNum !== memNum));
+        alert("회원 삭제가 완료되었습니다.");
+      } catch (error) {
+        console.error("Error deleting member:", error);
+        alert("회원 삭제에 실패했습니다.");
+      }
+    }
+  };
+
+
   return (
     <div className="container mt-5 py-4 px-xl-5">
       <ScrollToTopOnMount />
@@ -47,6 +66,7 @@ function MemberManage() {
             <th className="py-2 px-4 border-b">성별</th>
             <th className="py-2 px-4 border-b">생일</th>
             <th className="py-2 px-4 border-b">주소</th>
+            <th className="py-2 px-4 border-b">삭제</th>
           </tr>
         </thead>
         <tbody>
@@ -66,6 +86,13 @@ function MemberManage() {
               <td className="py-2 px-4 border-b">{member.memSex}</td>
               <td className="py-2 px-4 border-b">{new Date(member.memBirth).toLocaleDateString()}</td>
               <td className="py-2 px-4 border-b">{member.memAddr}</td>
+              <td className="py-2 px-4 border-b">
+                <button
+                  onClick={() => deleteMem(member.memNum)}
+                >
+                  삭제
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
