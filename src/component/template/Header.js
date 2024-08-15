@@ -109,10 +109,28 @@ function Header() {
                     aria-labelledby="userDropdown"
                   >
                     <li>
-                      <span className="dropdown-item">회원 관리</span>
+                      <Link 
+                        to="/admin/members"
+                        replace
+                        onClick={changeNav}
+                        style={{ textDecoration: "none"}}
+                      >
+                        <span className="dropdown-item">
+                          회원 관리
+                        </span>
+                      </Link>
                     </li>
                     <li>
-                      <span className="dropdown-item">상품 관리</span>
+                      <Link 
+                        to="/admin/products"
+                        replace
+                        onClick={changeNav}
+                        style={{ textDecoration: "none"}}
+                      >
+                        <span className="dropdown-item">
+                          상품 관리
+                        </span>
+                      </Link>
                     </li>
                   </ul>
                 </li>
