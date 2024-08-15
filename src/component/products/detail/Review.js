@@ -16,7 +16,7 @@ function Review({ prodNum }) {
 
   useEffect(() => {
     axios
-      .get(`/main/review/${prodNum}`)
+      .get(`/main/reviewAllByProduct/${prodNum}`)
       .then((res) => {
         setReviews(res);
       })
