@@ -112,7 +112,6 @@ function Header() {
                       <Link 
                         to="/admin/members"
                         replace
-                        onClick={changeNav}
                         style={{ textDecoration: "none"}}
                       >
                         <span className="dropdown-item">
@@ -124,7 +123,6 @@ function Header() {
                       <Link 
                         to="/admin/products"
                         replace
-                        onClick={changeNav}
                         style={{ textDecoration: "none"}}
                       >
                         <span className="dropdown-item">
