@@ -4,13 +4,15 @@ import { Link } from "react-router-dom";
 import Logo from "../../assets/img/Logo.png";
 import useAuthStore from "../../store/useAuthStore.js";
 import Login from "../popup/Login.js";
+import axios from "../../api/axios.js";
 
 function Header() {
   const [openedDrawer, setOpenedDrawer] = useState(false);
-  const [isLoginOpen, setIsLoginOpen] = useState(false); 
-  const { isLogin, memberInfo } = useAuthStore((state) => ({
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const { isLogin, memberInfo, logoutAuth } = useAuthStore((state) => ({
     isLogin: state.isLogin,
     memberInfo: state.memberInfo,
+    logoutAuth: state.logoutAuth,
   }));
 
   function changeNav(event) {
@@ -21,6 +23,18 @@ function Header() {
 
   function toggleLoginPopup() {
     setIsLoginOpen(!isLoginOpen);
+  }
+
+  function logout() {
+    axios
+      .post("/auth/logout")
+      .then((res) => {
+        console.log(res);
+        logoutAuth();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   return (
@@ -39,7 +53,7 @@ function Header() {
             }
           >
             <ul
-              className="navbar-nav me-auto mb-lg-0"
+              className="navbar-nav mb-lg-0 navbar-margin-right"
               style={{ fontSize: "20px", fontWeight: "bolder" }}
             >
               <li className="nav-item">
@@ -52,32 +66,71 @@ function Header() {
                   상품
                 </Link>
               </li>
-
+            </ul>
+            <ul
+              className="navbar-nav mb-lg-0 navbar-margin-right"
+              style={{ fontSize: "20px", fontWeight: "bolder" }}
+            >
               {memberInfo && memberInfo.memType !== 2 && (
                 <li className="nav-item">
-                  <Link
-                    to="/products"
-                    className="nav-link"
-                    replace
-                    onClick={changeNav}
+                  <a
+                     href="!#"
+                     className="nav-link dropdown-toggle"
+                     data-toggle="dropdown"
+                     id="userDropdown"
+                     role="button"
+                     data-bs-toggle="dropdown"
+                     aria-expanded="false"
                   >
                     사업자 페이지
-                  </Link>
-                </li>
-              )}
-              {memberInfo && memberInfo.memType === 9 && (
-                <li className="nav-item">
-                  <Link
-                    to="/products"
-                    className="nav-link"
-                    replace
-                    onClick={changeNav}
+                  </a>
+                  <ul
+                    className="dropdown-menu dropdown-bussiness"
+                    aria-labelledby="userDropdown"
                   >
-                    관리자 페이지
-                  </Link>
+                    <li>
+                      <span className="dropdown-item">상품 등록</span>
+                    </li>                    
+                    <li>
+                      <span className="dropdown-item">상품 관리</span>
+                    </li>  
+                  </ul>
                 </li>
               )}
             </ul>
+            <ul
+              className="navbar-nav mb-lg-0 navbar-margin-right"
+              style={{ fontSize: "20px", fontWeight: "bolder" }}
+            >
+              {memberInfo && memberInfo.memType === 9 && (
+                <li className="nav-item">
+                  <a
+                    href="!#"
+                    className="nav-link dropdown-toggle"
+                    data-toggle="dropdown"
+                    id="userDropdown"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    관리자 페이지
+                  </a>
+                  <ul
+                    className="dropdown-menu dropdown-manage"
+                    aria-labelledby="userDropdown"
+                  >
+                    <li>
+                      <span className="dropdown-item">회원 관리</span>
+                    </li>
+                    <li>
+                      <span className="dropdown-item">상품 관리</span>
+                    </li>
+                  </ul>
+                </li>
+              )}
+            </ul>
+          </div>
+          <div>
             <ul className="navbar-nav mb-2 mb-lg-0">
               <li className="nav-item dropdown">
                 <a
@@ -110,20 +163,20 @@ function Header() {
                         </span>
                       </li>
                       <li>
-                        <Link
+                        <span
                           to="/"
                           className="dropdown-item"
                           onClick={changeNav}
                         >
                           Sign Up
-                        </Link>
+                        </span>
                       </li>
                     </>
                   ) : (
                     <>
                       <li>
-                        <span  // 클릭시 유저 정보보기/수정 뷰
-                          className="dropdown-item"                      
+                        <span // 클릭시 유저 정보보기/수정 뷰
+                          className="dropdown-item"
                         >
                           {memberInfo?.memId} 정보
                         </span>
@@ -131,6 +184,7 @@ function Header() {
                       <li>
                         <span // 로그아웃 기능 연결
                           className="dropdown-item"
+                          onClick={logout}
                         >
                           Logout
                         </span>
