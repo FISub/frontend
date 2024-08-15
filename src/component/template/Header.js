@@ -8,7 +8,6 @@ import Signup from "../popup/Signup.js"
 import axios from "../../api/axios.js";
 
 function Header() {
-  const [openedDrawer, setOpenedDrawer] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isSignupOpen, setIsSignupOpen] = useState(false);
   const { isLogin, memberInfo, logoutAuth } = useAuthStore((state) => ({
@@ -16,12 +15,6 @@ function Header() {
     memberInfo: state.memberInfo,
     logoutAuth: state.logoutAuth,
   }));
-
-  function changeNav(event) {
-    if (openedDrawer) {
-      setOpenedDrawer(false);
-    }
-  }
 
   function toggleLoginPopup() {
     setIsLoginOpen(!isLoginOpen);
@@ -33,7 +26,7 @@ function Header() {
 
   function logout() {
     axios
-      .post("/auth/logout", {}, {withCredentials:true})
+      .post("/auth/logout", {}, { withCredentials: true })
       .then((res) => {
         console.log(res);
         logoutAuth();
@@ -48,27 +41,17 @@ function Header() {
       {" "}
       <nav className="navbar fixed-top navbar-expand-lg navbar-light bg-white border-bottom">
         <div className="container-fluid">
-          <Link className="navbar-brand" to="/" onClick={changeNav}>
+          <Link className="navbar-brand" to="/">
             <img src={Logo} alt="" height="70px" />
           </Link>
 
-          <div
-            className={
-              "navbar-collapse offcanvas-collapse " +
-              (openedDrawer ? "open" : "")
-            }
-          >
+          <div className={"navbar-collapse offcanvas-collapse "}>
             <ul
               className="navbar-nav mb-lg-0 navbar-margin-right"
               style={{ fontSize: "20px", fontWeight: "bolder" }}
             >
               <li className="nav-item">
-                <Link
-                  to="/products"
-                  className="nav-link"
-                  replace
-                  onClick={changeNav}
-                >
+                <Link to="/products" className="nav-link" replace>
                   상품
                 </Link>
               </li>
@@ -80,13 +63,13 @@ function Header() {
               {memberInfo && memberInfo.memType !== 2 && (
                 <li className="nav-item">
                   <a
-                     href="!#"
-                     className="nav-link dropdown-toggle"
-                     data-toggle="dropdown"
-                     id="userDropdown"
-                     role="button"
-                     data-bs-toggle="dropdown"
-                     aria-expanded="false"
+                    href="!#"
+                    className="nav-link dropdown-toggle"
+                    data-toggle="dropdown"
+                    id="userDropdown"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
                   >
                     사업자 페이지
                   </a>
@@ -96,10 +79,10 @@ function Header() {
                   >
                     <li>
                       <span className="dropdown-item">상품 등록</span>
-                    </li>                    
+                    </li>
                     <li>
                       <span className="dropdown-item">상품 관리</span>
-                    </li>  
+                    </li>
                   </ul>
                 </li>
               )}
@@ -169,11 +152,10 @@ function Header() {
                         </span>
                       </li>
                       <li>
-                        <span
-                          to="/"
-                          className="dropdown-item"
+                        <span to="/signup" className="dropdown-item"
                           onClick={toggleSignupPopup}
                         >
+                        
                           Sign Up
                         </span>
                       </li>

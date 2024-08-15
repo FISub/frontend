@@ -1,7 +1,16 @@
+import useAuthStore from "../../../store/useAuthStore.js";
+
 function Period({ onPeriodSelect }) {
+  const { isLogin } = useAuthStore((state) => ({
+    isLogin: state.isLogin,
+  }));
+
   const handlePeriod = (days) => () => {
-    console.log(days);
-    onPeriodSelect(days);
+    if (isLogin) {
+      onPeriodSelect(days);
+    } else {
+      alert("로그인 후 이용해 주세요.");
+    }
   };
 
   return (

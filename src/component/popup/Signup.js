@@ -83,7 +83,7 @@ export default function Signup({ isOpen, onClose }) {
         memType: 0
       }, { withCredentials: true })
       .then(() => {
-        alert("해당 계정으로 로그인 해 주세요.");
+        alert("회원가입 완료 , 해당 계정으로 로그인 해 주세요.");
         onClose();
       })
       .catch(() => {

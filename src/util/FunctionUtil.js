@@ -25,10 +25,13 @@ export function categoryName(categoryNum) {
 // 결제정보 카드번호 뒷자리 4자리만
 export default function formatCardNumber(cardNumber) {
   if (cardNumber.length === 16) {
-    const maskedPart = '*'.repeat(12);
+    const maskedPart = '**** **** ****';
     const lastFour = cardNumber.slice(-4);
+
+    // 카드 번호를 4자리씩 그룹으로 나누고 공백을 넣어 형식을 만듭니다.
+    const formattedLastFour = `${maskedPart} ${lastFour}`;
     
-    return `${maskedPart}${lastFour}`;
+    return formattedLastFour;
   }
 
   // 카드번호가 16자리가 아닐 경우 처리 (예: 반환하거나 에러 처리)
