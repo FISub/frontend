@@ -1,38 +1,22 @@
-import React, { useEffect, useState } from "react";
-import "../../assets/css/signupPopup.css";
-import axios from "../../api/axios.js";
+import axios from "axios";
+import React, { useState } from "react";
+import "../../assets/css/popup.css";
+import "../../assets/css/userInfoPopup.css";
 import close_window from "../../assets/img/close-window.png";
 
-export default function Signup({ isOpen, onClose }) {
-  const [id, setId] = useState("");
-  const [pw, setPw] = useState("");
-  const [confirmPw, setConfirmPw] = useState("");
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [sex, setSex] = useState("");
-  const [birth, setBirth] = useState("");
-  const [addr, setAddr] = useState("");
-  const [error, setError] = useState(""); 
+const EditUserInfo = ({ userInfo, onClose }) => {
+  const [id, setId] = useState(userInfo.memId);
+  const [pw, setPw] = useState(userInfo.memPw);
+  const [confirmPw, setConfirmPw] = useState(userInfo.memPw); // 비밀번호 확인 추가
+  const [name, setName] = useState(userInfo.memName);
+  const [email, setEmail] = useState(userInfo.memEmail);
+  const [phone, setPhone] = useState(userInfo.memPhone);
+  const [sex, setSex] = useState(userInfo.memSex);
+  const [birth, setBirth] = useState(userInfo.memBirth);
+  const [addr, setAddr] = useState(userInfo.memAddr);
+  const [error, setError] = useState("");
 
-  useEffect(() => {
-    if (!isOpen) {
-      setId("");
-      setPw("");
-      setConfirmPw("");
-      setName("");
-      setEmail("");
-      setPhone("");
-      setSex("");
-      setBirth("");
-      setAddr("");
-      setError("");
-    }
-  }, [isOpen]);
-
-  if (!isOpen) return null;
-
-  function validateForm() {
+  const validateForm = () => {
     if (!id.trim() || id.length < 4) {
       return "아이디는 4자 이상이어야 합니다.";
     }
@@ -61,9 +45,9 @@ export default function Signup({ isOpen, onClose }) {
       return "주소를 입력해 주세요.";
     }
     return "";
-  }
+  };
 
-  function signup() {
+  const handleSave = () => {
     const validationError = validateForm();
     if (validationError) {
       setError(validationError);
@@ -71,128 +55,112 @@ export default function Signup({ isOpen, onClose }) {
     }
 
     axios
-      .post("/auth/join", {
-        memId: id,
-        memPw: pw,
-        memName: name,
-        memEmail: email,
-        memPhone: phone,
-        memSex: sex,
-        memBirth: birth,
-        memAddr: addr,
-        memType: 1
-      }, { withCredentials: true })
+      .put(
+        "/member/info/update",
+        {
+          memId: id,
+          memPw: pw,
+          memName: name,
+          memEmail: email,
+          memPhone: phone,
+          memSex: sex,
+          memBirth: birth,
+          memAddr: addr,
+        },
+        { withCredentials: true }
+      )
       .then(() => {
-        alert("회원가입 완료 , 해당 계정으로 로그인 해 주세요.");
-        onClose();
+        alert("성공적으로 수정되었습니다.");
+        onClose(); // Close the popup
       })
-      .catch(() => {
+      .catch((error) => {
+        console.error("업데이트 하는데 실패하였습니다.", error);
         setError("중복된 id입니다.");
       });
-  }
-
-  function handleKeyDown(e) {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      signup();
-    }
-  }
+  };
 
   return (
-    <div className="popup_container" onClick={onClose}>
-      <div className="popup_main_fit" onClick={(e) => e.stopPropagation()}>
+    <div className="popup_container">
+      <div className="popup_main">
         <div className="close_popup" onClick={onClose}>
           <img src={close_window} alt="닫기" className="close_img" />
         </div>
-        <div className="popup_body_fit">
-          <h2>회원가입</h2>
-          <div className="login-form">
+        <div className="popup_body">
+          <h2>유저 정보 수정</h2>
+          <hr />
+          <div className="userinfo_popup_content">
             <label htmlFor="id">ID:</label>
             <input
               id="id"
               type="text"
-              placeholder="아이디 입력 (4자 이상)"
               value={id}
               onChange={(e) => setId(e.target.value)}
-              onKeyDown={handleKeyDown}
+            />
+            <label htmlFor="pw">Password:</label>
+            <input
+              id="pw"
+              type="password"
+              value={pw}
+              onChange={(e) => setPw(e.target.value)}
+            />
+            <label htmlFor="confirmPw">Confirm Password:</label>
+            <input
+              id="confirmPw"
+              type="password"
+              value={confirmPw}
+              onChange={(e) => setConfirmPw(e.target.value)}
             />
             <label htmlFor="name">Name:</label>
             <input
               id="name"
               type="text"
-              placeholder="이름 입력"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              onKeyDown={handleKeyDown}
             />
             <label htmlFor="email">Email:</label>
             <input
               id="email"
               type="email"
-              placeholder="이메일 입력"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              onKeyDown={handleKeyDown}
             />
             <label htmlFor="phone">Phone:</label>
             <input
               id="phone"
               type="text"
-              placeholder="01012345678 (숫자만 입력)"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
-              onKeyDown={handleKeyDown}
             />
             <label htmlFor="sex">Sex:</label>
             <input
               id="sex"
               type="text"
-              placeholder="성별 입력 M/F"
               value={sex}
               onChange={(e) => setSex(e.target.value)}
-              onKeyDown={handleKeyDown}
             />
             <label htmlFor="birth">Birth Date:</label>
             <input
               id="birth"
               type="date"
-              placeholder="생년월일 입력"
               value={birth}
               onChange={(e) => setBirth(e.target.value)}
-              onKeyDown={handleKeyDown}
             />
             <label htmlFor="addr">Address:</label>
             <input
               id="addr"
               type="text"
-              placeholder="주소 입력"
               value={addr}
               onChange={(e) => setAddr(e.target.value)}
-              onKeyDown={handleKeyDown}
-            />
-            <label htmlFor="pw">PW:</label>
-            <input
-              id="pw"
-              type="password"
-              placeholder="비밀번호 입력 (4자 이상)"
-              value={pw}
-              onChange={(e) => setPw(e.target.value)}
-              onKeyDown={handleKeyDown}
-            />
-            <label htmlFor="confirmPw">Confirm PW:</label>
-            <input
-              id="confirmPw"
-              type="password"
-              placeholder="비밀번호 확인 (4자 이상)"
-              value={confirmPw}
-              onChange={(e) => setConfirmPw(e.target.value)}
-              onKeyDown={handleKeyDown}
             />
             {error && <p className="error-message">{error}</p>}
-            <button onClick={signup}>회원가입</button>
+            <button className="editUserBtn" onClick={handleSave}>
+              저장
+            </button>
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
+
+export default EditUserInfo;
