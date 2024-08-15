@@ -149,6 +149,17 @@ function Header() {
                         </span>
                       </Link>
                     </li>
+                    <li>
+                      <Link 
+                        to="/admin/dashboard"
+                        replace
+                        style={{ textDecoration: "none"}}
+                      >
+                        <span className="dropdown-item">
+                          대시보드
+                        </span>
+                      </Link>
+                    </li>
                   </ul>
                 </li>
               )}

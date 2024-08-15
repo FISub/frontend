@@ -6,6 +6,7 @@ import ProductList from "./component/products/ProductList";
 import MemberManage from "./component/admin/MemberManage";
 import ProductManage from "./component/admin/ProductManage";
 import Subscriptions from './component/Subscriptions';
+import Dashboard from "./component/admin/Dashboard";
 import Template from "./component/template/Template";
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
           <Route path="/admin/members" component={MemberManage} />
           <Route path="/admin/products" component={ProductManage} />
           <Route path="/member/subscriptions" component={Subscriptions} />
+          <Route path="/admin/dashboard" component={Dashboard} />
           {/* 추가적인 라우트 설정 */}
         </Switch>
       </Template>
