@@ -4,12 +4,14 @@ import { Link } from "react-router-dom";
 import Logo from "../../assets/img/Logo.png";
 import useAuthStore from "../../store/useAuthStore.js";
 import Login from "../popup/Login.js";
+import UserInfo from "../popup/UserInfo.js";
 import Signup from "../popup/Signup.js"
 import axios from "../../api/axios.js";
 
 function Header() {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isSignupOpen, setIsSignupOpen] = useState(false);
+  const [isUserInfoOpen, setIsUserInfoOpen] = useState(false);
   const { isLogin, memberInfo, logoutAuth } = useAuthStore((state) => ({
     isLogin: state.isLogin,
     memberInfo: state.memberInfo,
@@ -18,11 +20,22 @@ function Header() {
 
   function toggleLoginPopup() {
     setIsLoginOpen(!isLoginOpen);
+    setIsSignupOpen(false);
+    setIsUserInfoOpen(false);
   }
-
+  
   function toggleSignupPopup() {
-    setIsSignupOpen(!isSignupOpen); // 회원가입 팝업 토글 함수
+    setIsSignupOpen(!isSignupOpen);
+    setIsLoginOpen(false);
+    setIsUserInfoOpen(false);
   }
+  
+  function toggleUserInfoPopup() {
+    setIsUserInfoOpen(!isUserInfoOpen);
+    setIsLoginOpen(false);
+    setIsSignupOpen(false);
+  }
+  
 
   function logout() {
     axios
@@ -181,6 +194,7 @@ function Header() {
                       <li>
                         <span // 클릭시 유저 정보보기/수정 뷰
                           className="dropdown-item"
+                          onClick={toggleUserInfoPopup}
                         >
                           {memberInfo?.memId} 정보
                         </span>
@@ -203,6 +217,7 @@ function Header() {
       </nav>
       <Login isOpen={isLoginOpen} onClose={toggleLoginPopup} />
       <Signup isOpen={isSignupOpen} onClose={toggleSignupPopup} />
+      <UserInfo isOpen={isUserInfoOpen} onClose={toggleUserInfoPopup} />
     </header>
   );
 }

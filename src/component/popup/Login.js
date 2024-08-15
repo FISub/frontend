@@ -24,7 +24,7 @@ export default function Login({ isOpen, onClose }) {
     axios
       .post("/auth/login", { id, pw }, { withCredentials: true })
       .then((res) => {
-        const { memNum, memId, memType } = res; // 응답 데이터는 res.data에서 가져와야 함
+        const { memNum, memId, memType } = res;
         loginAuth({ memNum, memId, memType });
         onClose();
       })
