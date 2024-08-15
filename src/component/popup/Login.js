@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../../assets/css/popup.css";
 import axios from "../../api/axios.js";
 import useAuthStore from "../../store/useAuthStore";
@@ -10,6 +10,13 @@ export default function Login({ isOpen, onClose }) {
   const [pw, setPw] = useState("");
   const { loginAuth } = useAuthStore();
 
+  useEffect(() => {
+    if (!isOpen) {
+      setId("");
+      setPw("");
+    } 
+  }, [isOpen])
+  
   if (!isOpen) return null; // 팝업이 열리지 않으면 아무것도 렌더링하지 않음
 
   function login() {
