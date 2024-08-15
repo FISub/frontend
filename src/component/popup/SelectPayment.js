@@ -10,7 +10,7 @@ function SelectPayment({ period, onClose }) {
   const [payment, setPayment] = useState([]);
 
   useEffect(() => {
-    axios.get(`/main/paymentAllByMember`,{}, { withCredentials: true })
+    axios.get(`/main/paymentAllByMember`, { withCredentials: true })
     .then((res) => {
       setPayment(res);
     }) 
