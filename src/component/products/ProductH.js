@@ -2,35 +2,13 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-function ProductH({ product, percentOff }) {
-  const price = product.prodPrice;
-  let percentOffBadge;
-  let offPrice = `${price}Ks`;
-
-  if (percentOff && percentOff > 0) {
-    percentOffBadge = (
-      <div
-        className="badge bg-dim py-2 text-white position-absolute"
-        style={{ top: "0.5rem", left: "0.5rem" }}
-      >
-        {percentOff}% OFF
-      </div>
-    );
-
-    offPrice = (
-      <>
-        <del>{price}Ks</del> {price - (percentOff * price) / 100}Ks
-      </>
-    );
-  }
-
+function ProductH({ product }) {
   return (
     <div className="col">
       <div className="card shadow-sm">
         <div className="row g-0">
           <div className="col-4">
-            <Link to={`/products/${product.prodNum}`} href="!#" replace>
-              {percentOffBadge}
+            <Link to={`/products/${product.prodNum}`} href="!#" replace>              
               <img
                 className="rounded-start bg-dark cover w-100 h-100"
                 alt={product.prodName}
@@ -45,7 +23,7 @@ function ProductH({ product, percentOff }) {
                   {product.prodName}
                 </h5>
                 <span className="card-text text-muted mb-2 flex-shrink-0">
-                  {offPrice}
+                  {product.prodPrice.toLocaleString()}원
                 </span>
                 <div className="mt-auto d-flex">
                   <Link to={`/products/${product.prodNum}`} className="btn btn-outline-dark ms-auto">

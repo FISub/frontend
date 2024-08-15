@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "../../../api/axios.js";
 import { PiStarFill, PiStarLight } from "react-icons/pi";
+import useAuthStore from "../../../store/useAuthStore.js";
 
 function Review({ prodNum }) {
   const [reviews, setReviews] = useState([]);
@@ -9,6 +10,9 @@ function Review({ prodNum }) {
     star: 0,
     content: "",
   });
+  const { isLogin } = useAuthStore((state) => ({
+    isLogin: state.isLogin,
+  }));
 
   useEffect(() => {
     axios
@@ -31,6 +35,7 @@ function Review({ prodNum }) {
   };
 
   const handleSubmit = () => {
+    if(isLogin){
     axios
       .post(`/main/reviewInsert`, {
         prodNum: prodNum,
@@ -44,6 +49,9 @@ function Review({ prodNum }) {
       .catch((err) => {
         console.log(err);
       });
+    } else{
+      alert('로그인 후 이용해 주세요.');
+    }
   };
 
   return (

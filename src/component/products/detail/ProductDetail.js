@@ -6,10 +6,18 @@ import { categoryName } from "../../../util/FunctionUtil.js";
 import ScrollToTopOnMount from "../../../util/ScrollToTopOnMount";
 import Period from "./Period.js";
 import Review from "./Review";
+import SelectPayment from "../../popup/SelectPayment.js";
 
 function ProductDetail() {
   const { slug } = useParams(); 
   const [product, setProduct] = useState(null);
+  const [selectedPeriod, setSelectedPeriod] = useState(null);
+  const [isPopupOpen, setPopupOpen] = useState(false);
+
+  const handlePeriodSelect = (period) => {
+    setSelectedPeriod(period); 
+    setPopupOpen(true); 
+  };
 
   useEffect(() => {
     axios
@@ -62,7 +70,7 @@ function ProductDetail() {
           <div className="period-box">
             <div className="period-text fw-600">배송 주기</div>
             <hr />
-            <Period/>
+            <Period onPeriodSelect={handlePeriodSelect}/>
           </div>
         </div>
         <div className="description-box">
@@ -81,6 +89,13 @@ function ProductDetail() {
           <Review prodNum={product.prodNum} />
         </div>
       </div>
+
+      {isPopupOpen && (
+        <SelectPayment
+          period={selectedPeriod}
+          onClose={() => setPopupOpen(false)}
+        />
+      )}
     </div>
   );
 }
