@@ -21,3 +21,16 @@ export function categoryName(categoryNum) {
 		return "기타";
   }
 }
+
+// 결제정보 카드번호 뒷자리 4자리만
+export default function formatCardNumber(cardNumber) {
+  if (cardNumber.length === 16) {
+    const maskedPart = '*'.repeat(12);
+    const lastFour = cardNumber.slice(-4);
+    
+    return `${maskedPart}${lastFour}`;
+  }
+
+  // 카드번호가 16자리가 아닐 경우 처리 (예: 반환하거나 에러 처리)
+  return cardNumber;
+}
