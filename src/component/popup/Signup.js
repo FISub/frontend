@@ -13,7 +13,8 @@ export default function Signup({ isOpen, onClose }) {
   const [sex, setSex] = useState("");
   const [birth, setBirth] = useState("");
   const [addr, setAddr] = useState("");
-  const [error, setError] = useState(""); 
+  const [error, setError] = useState("");
+  const [userType, setUserType] = useState("2");
 
   useEffect(() => {
     if (!isOpen) {
@@ -27,6 +28,7 @@ export default function Signup({ isOpen, onClose }) {
       setBirth("");
       setAddr("");
       setError("");
+      setUserType("2");
     }
   }, [isOpen]);
 
@@ -71,17 +73,21 @@ export default function Signup({ isOpen, onClose }) {
     }
 
     axios
-      .post("/auth/join", {
-        memId: id,
-        memPw: pw,
-        memName: name,
-        memEmail: email,
-        memPhone: phone,
-        memSex: sex,
-        memBirth: birth,
-        memAddr: addr,
-        memType: 1
-      }, { withCredentials: true })
+      .post(
+        "/auth/join",
+        {
+          memId: id,
+          memPw: pw,
+          memName: name,
+          memEmail: email,
+          memPhone: phone,
+          memSex: sex,
+          memBirth: birth,
+          memAddr: addr,
+          memType: userType,
+        },
+        { withCredentials: true }
+      )
       .then(() => {
         alert("회원가입 완료 , 해당 계정으로 로그인 해 주세요.");
         onClose();
@@ -105,7 +111,31 @@ export default function Signup({ isOpen, onClose }) {
           <img src={close_window} alt="닫기" className="close_img" />
         </div>
         <div className="popup_body_fit">
-          <h2>회원가입</h2>
+          <div style={{ display:'flex', justifyContent: "space-between" }}>
+            <h2>회원가입</h2>
+            <div style={{display:'flex', alignItems:'center'}}>
+              <input
+                type="radio"
+                id="user"
+                name="userType"
+                value="2"
+                checked={userType === "2"}
+                onChange={() => setUserType("2")}
+                style={{marginRight:'5px'}}
+              />
+              <label htmlFor="user" style={{marginRight: '10px'}}>일반회원</label>
+              <input
+                type="radio"
+                id="business"
+                name="userType"
+                value="1"
+                checked={userType === "1"}
+                onChange={() => setUserType("1")}
+                style={{marginRight:'5px'}}
+              />
+              <label htmlFor="business" >사업자</label>
+            </div>
+          </div>
           <div className="login-form">
             <label htmlFor="id">ID:</label>
             <input

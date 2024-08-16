@@ -81,7 +81,7 @@ function ProductManage() {
               <td className="common-td py-2 px-4 border-b">{product.prodName}</td>
               <td className="common-td py-2 px-4 border-b">{product.prodPrice}</td>
               <td className="common-td py-2 px-4 border-b">
-                <img src={product.prodImg} width="80" height="80" />
+                <img src={product.prodImg} alt="" width="80" height="80" />
               </td>
               <td className="common-td py-2 px-4 border-b">{product.prodIntro}</td>
               <td className="common-td py-2 px-4 border-b">
