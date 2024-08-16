@@ -1,24 +1,57 @@
 import React, { useState } from "react";
 import axios from "../../api/axios.js";
+import { storage, ref, uploadBytesResumable, getDownloadURL } from '../../util/FirebaseConfig.js'; // firebase-config import
 import '../../assets/css/ProductRegister.css';
 
 function ProductRegister() {
   const [productName, setProductName] = useState('');
   const [productPrice, setProductPrice] = useState('');
   const [productIntro, setProductIntro] = useState('');
-  const [productImg, setProductImg] = useState('');
+  const [productImg, setProductImg] = useState(null); // 이미지 파일을 저장
   const [productCat, setProductCat] = useState('0');  // 기본값 '기타'
-
   const [loading, setLoading] = useState(false);
+
+  const handleImageChange = (e) => {
+    setProductImg(e.target.files[0]); // 이미지 파일을 상태에 저장
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     setLoading(true); // 로딩 시작
 
     try {
-      // 1. 세션에서 memNum 가져오기
+      let imageUrl = '';
+
+      // 이미지 파일이 존재할 경우 Firebase Storage에 업로드
+      if (productImg) {
+        const imageRef = ref(storage, `images/${productImg.name}`);
+        const uploadTask = uploadBytesResumable(imageRef, productImg);
+
+        await new Promise((resolve, reject) => {
+          uploadTask.on(
+            'state_changed',
+            (snapshot) => {
+              // 진행 상황을 추적할 수 있습니다.
+              const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+              console.log('Upload is ' + progress + '% done');
+            },
+            (error) => {
+              reject(error);
+            },
+            () => {
+              // 업로드 완료 후 다운로드 URL 가져오기
+              getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                imageUrl = downloadURL;
+                resolve();
+              });
+            }
+          );
+        });
+      }
+
+      // 세션에서 memNum 가져오기
       const sessionResponse = await axios.get('/auth/sessionInfo', { withCredentials: true });
+      console.log(sessionResponse)
       const memNum = sessionResponse.memNum;
 
       // 백엔드에 POST 요청을 보냅니다.
@@ -26,7 +59,7 @@ function ProductRegister() {
         prodName: productName,
         prodPrice: productPrice,
         prodIntro: productIntro,
-        prodImg: productImg,
+        prodImg: imageUrl, // 업로드된 이미지 URL
         prodCat: productCat,
         memNum: memNum
       });
@@ -36,7 +69,7 @@ function ProductRegister() {
         setProductName('');
         setProductPrice('');
         setProductIntro('');
-        setProductImg('');
+        setProductImg(null); // 이미지 상태 초기화
         setProductCat('0');  // 기본값 '기타'로 초기화
       }
     } catch (error) {
@@ -99,14 +132,13 @@ function ProductRegister() {
               </td>
             </tr>
             <tr className="common-tr">
-              <th className="common-th py-2 px-4 border-b">상품 이미지 URL</th>
+              <th className="common-th py-2 px-4 border-b">상품 이미지</th>
               <td className="common-td py-2 px-4 border-b">
                 <input
-                  type="text"
-                  value={productImg}
-                  onChange={(e) => setProductImg(e.target.value)}
-                  required
-                  className="form-control"                  
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                  className="form-control"
                   disabled={loading}
                 />
               </td>
