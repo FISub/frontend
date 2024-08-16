@@ -66,6 +66,7 @@ const EditUserInfo = ({ userInfo, onClose }) => {
           memSex: sex,
           memBirth: birth,
           memAddr: addr,
+          memType : userInfo.memType
         },
         { withCredentials: true }
       )
