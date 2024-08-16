@@ -1,6 +1,8 @@
-import React, { useState } from "react";
 import axios from "axios";
+import React, { useState } from "react";
+import "../../assets/css/popup.css";
 import "../../assets/css/userInfoPopup.css";
+import close_window from "../../assets/img/close-window.png";
 
 const EditUserInfo = ({ userInfo, onClose }) => {
   const [id, setId] = useState(userInfo.memId);
@@ -53,16 +55,20 @@ const EditUserInfo = ({ userInfo, onClose }) => {
     }
 
     axios
-      .put("/member/info/update", {
-        memId: id,
-        memPw: pw,
-        memName: name,
-        memEmail: email,
-        memPhone: phone,
-        memSex: sex,
-        memBirth: birth,
-        memAddr: addr,
-      },{ withCredentials: true })
+      .put(
+        "/member/info/update",
+        {
+          memId: id,
+          memPw: pw,
+          memName: name,
+          memEmail: email,
+          memPhone: phone,
+          memSex: sex,
+          memBirth: birth,
+          memAddr: addr,
+        },
+        { withCredentials: true }
+      )
       .then(() => {
         alert("성공적으로 수정되었습니다.");
         onClose(); // Close the popup
@@ -74,10 +80,14 @@ const EditUserInfo = ({ userInfo, onClose }) => {
   };
 
   return (
-    <div className="userinfo_popup_container">
-      <div className="userinfo_popup_main">
+    <div className="popup_container">
+      <div className="popup_main">
+        <div className="close_popup" onClick={onClose}>
+          <img src={close_window} alt="닫기" className="close_img" />
+        </div>
         <div className="popup_body">
           <h2>유저 정보 수정</h2>
+          <hr />
           <div className="userinfo_popup_content">
             <label htmlFor="id">ID:</label>
             <input
@@ -143,8 +153,9 @@ const EditUserInfo = ({ userInfo, onClose }) => {
               onChange={(e) => setAddr(e.target.value)}
             />
             {error && <p className="error-message">{error}</p>}
-            <button onClick={handleSave}>저장</button>
-            <button onClick={onClose}>취소</button>
+            <button className="editUserBtn" onClick={handleSave}>
+              저장
+            </button>
           </div>
         </div>
       </div>
