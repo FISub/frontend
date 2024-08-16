@@ -9,6 +9,7 @@ import Subscriptions from './component/Subscriptions';
 import Dashboard from "./component/admin/Dashboard";
 import Template from "./component/template/Template";
 import ProductRegister from './component/biz/ProductRegister';
+import ProductManageBiz from './component/biz/ProductManageBiz';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/member/subscriptions" component={Subscriptions} />
           <Route path="/admin/dashboard" component={Dashboard} />
           <Route path="/biz/register" component={ProductRegister} />
+          <Route path="/biz/manage" component={ProductManageBiz} />
           {/* 추가적인 라우트 설정 */}
         </Switch>
       </Template>
