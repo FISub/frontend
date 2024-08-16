@@ -9,7 +9,7 @@ function Landing() {
     <>
       <ScrollToTopOnMount />
       <Banner />
-      <div className="d-flex flex-column bg-white py-4">        
+      <div className="d-flex flex-column bg-white py-4">       
         <div className="d-flex justify-content-center">
           <Link to="/products" className="btn btn-primary">
             상품보기

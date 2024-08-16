@@ -1,0 +1,21 @@
+.product-register {
+    width: 60%;
+    margin: 150px auto;
+  }
+  
+  .table {
+    width: 100%;
+    margin-top: 20px;
+  }
+  
+  .form-control {
+    width: 100%;
+    padding: 5px;
+  }
+  
+  .btn-primary {
+    display: block;
+    width: 100%;
+    padding: 10px;
+  }
+  
