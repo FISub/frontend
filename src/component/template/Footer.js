@@ -4,8 +4,18 @@ import git_eun from "../../assets/img/git_eun.jpg";
 import git_hyeon from "../../assets/img/git_hyeon.png";
 import git_jun from "../../assets/img/git_jun.jpg";
 import logo from "../../assets/img/Logo_footer.png";
-
+import { useHistory, useLocation } from 'react-router-dom';
 function Footer() {
+  const history = useHistory();
+  const location= useLocation();
+
+  function handleLogoClick() {
+    if(location.pathname !== '/'){
+      history.push('/');
+    }
+    window.scrollTo(0, 0);
+  }
+
   return (
     <footer className="mt-auto bg-dark">
       <div
@@ -15,7 +25,7 @@ function Footer() {
         <span className="text-muted" style={{ alignContent: "center" }}>
           Copyright &copy; Website 2024
         </span>
-        <img src={logo} alt="" style={{ width: "12%", height: "12%", marginTop: '20px' }} />
+          <img src={logo} alt="" style={{ width:'12%', height:'12%', marginTop: '20px', cursor: 'pointer'}} onClick={handleLogoClick}/>
         <div className="d-flex flex-column bg-black py-4">
           <h5 className="text-center mb-3" style={{ color: "white" }}>
             GitHub
