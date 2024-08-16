@@ -15,7 +15,7 @@ function ProductDetail() {
   const [isPopupOpen, setPopupOpen] = useState(false);
 
   const handlePeriodSelect = (period) => {
-    setSelectedPeriod(period); 
+    setSelectedPeriod(period, product.prodNum); 
     setPopupOpen(true); 
   };
 
@@ -92,6 +92,7 @@ function ProductDetail() {
 
       {isPopupOpen && (
         <SelectPayment
+          prodNum={product.prodNum}
           period={selectedPeriod}
           onClose={() => setPopupOpen(false)}
         />
