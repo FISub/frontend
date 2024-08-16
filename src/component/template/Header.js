@@ -7,8 +7,10 @@ import Login from "../popup/Login.js";
 import UserInfo from "../popup/UserInfo.js";
 import Signup from "../popup/Signup.js";
 import axios from "../../api/axios.js";
+import { useHistory } from 'react-router-dom';
 
 function Header() {
+  const history = useHistory();
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isSignupOpen, setIsSignupOpen] = useState(false);
   const [isUserInfoOpen, setIsUserInfoOpen] = useState(false);
@@ -42,6 +44,7 @@ function Header() {
       .then((res) => {
         console.log(res);
         logoutAuth();
+        history.push('/');
       })
       .catch((err) => {
         console.log(err);
