@@ -111,7 +111,15 @@ function Header() {
                       </Link>
                     </li>
                     <li>
-                      <span className="dropdown-item">상품 관리</span>
+                    <Link 
+                        to="/biz/manage"
+                        replace
+                        style={{ textDecoration: "none"}}
+                      >
+                        <span className="dropdown-item">
+                          상품 관리
+                        </span>
+                      </Link>
                     </li>
                   </ul>
                 </li>
