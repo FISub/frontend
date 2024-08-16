@@ -8,29 +8,33 @@ const Subscriptions = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchSubscriptions = async () => {
-      try {
-        const response = await axios.get('/member/sublist/get', { withCredentials: true });
-        console.log(response);
-        setSubscriptions(response.data);
-      } catch (err) {
-        console.error("Error fetching subscriptions:", err);
-        setError(err);
-      } finally {
-        setLoading(false);
-      }
-    };
+  // fetchSubscriptions 함수 정의
+  const fetchSubscriptions = async () => {
+    try {
+      const response = await axios.get('/member/sublist/get', { withCredentials: true });
+      console.log(response);
+      setSubscriptions(response.data);
+    } catch (err) {
+      console.error("Error fetching subscriptions:", err);
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    fetchSubscriptions();
+  useEffect(() => {
+    fetchSubscriptions();  // 컴포넌트 마운트 시 구독 리스트를 가져옴
   }, []);
 
+  // handleDelete 함수에서 fetchSubscriptions 함수 사용
   const handleDelete = async (sub_num) => {
     try {
-      await axios.delete(`/member/sublist/delete/${sub_num}`, { withCredentials: true });
-      setSubscriptions(subscriptions.filter(sub => sub.sub_num !== sub_num));
+      await axios.delete(`/member/sublist/delete?subNum=${sub_num}`, { withCredentials: true });
+      console.log(sub_num)
+      fetchSubscriptions();  // 구독 삭제 후 리스트를 다시 불러옴
     } catch (err) {
       console.error("Error deleting subscription:", err);
+      console.log(sub_num)
       setError(err);
     }
   };
@@ -75,7 +79,7 @@ const Subscriptions = () => {
               </td>
               <td className="py-2 px-4 border-b">
                 <button 
-                  onClick={() => handleDelete(subscription.sub_num)} 
+                  onClick={() => handleDelete(subscription.subNum)} 
                   className="delete-button"
                 >
                   삭제
