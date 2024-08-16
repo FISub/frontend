@@ -1,57 +1,58 @@
 /* tableStyles.css */
 
-table {
+.admin-table {
   width: 100%;
   border-collapse: collapse;
   font-family: 'Arial, sans-serif';
+  font-size: 14px;
   background-color: #ffffff;
 }
 
-thead {
+.admin-thead {
   background-color: #4A90E2;
   color: white;
   text-align: left;
 }
 
-th, td {
+.admin-th, .admin-td {
   padding: 12px 15px;
   border-bottom: 1px solid #ddd;
 }
 
-th {
+.admin-th {
   font-weight: 600;
 }
 
-tr:nth-child(even) {
+.admin-tr:nth-child(even) {
   background-color: #f2f2f2;
 }
 
-tbody > tr:hover {
+.admin-tbody > .admin-tr:hover {
   background-color: #e6f7ff;
   cursor: pointer;
 }
 
-td {
+.admin-td {
   color: #333;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  table, thead, tbody, th, td, tr {
+  .admin-table, .admin-thead, .admin-tbody, .admin-th, .admin-td, .admin-tr {
     display: block;
   }
 
-  tr {
+  .admin-tr {
     margin-bottom: 15px;
   }
 
-  th, td {
+  .admin-th, .admin-td {
     text-align: right;
     padding-left: 50%;
     position: relative;
   }
 
-  th::before, td::before {
+  .admin-th::before, .admin-td::before {
     content: attr(data-label);
     position: absolute;
     left: 10px;
@@ -59,7 +60,12 @@ td {
     text-transform: uppercase;
   }
 
-  thead {
+  .admin-thead {
     display: none;
   }
+
+  .admin-button {
+    white-space: nowrap;
+  }
 }
+

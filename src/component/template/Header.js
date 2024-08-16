@@ -97,7 +97,15 @@ function Header() {
                     aria-labelledby="userDropdown"
                   >
                     <li>
-                      <span className="dropdown-item">상품 등록</span>
+                      <Link 
+                        to="/biz/register"
+                        replace
+                        style={{ textDecoration: "none"}}
+                      >
+                        <span className="dropdown-item">
+                          상품 등록
+                        </span>
+                      </Link>
                     </li>
                     <li>
                       <span className="dropdown-item">상품 관리</span>
