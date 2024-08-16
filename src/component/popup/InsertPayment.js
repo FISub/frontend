@@ -89,11 +89,11 @@ function InsertPayment({ onClose, onPaymentAdded }) {
 
   return (
     <div className="popup_container" onClick={onClose}>
-      <div className="popup_main_medium" onClick={(e) => e.stopPropagation()}>
+      <div className="popup_main_fit" onClick={(e) => e.stopPropagation()}>
         <div className="close_popup" onClick={onClose}>
           <img src={close_window} alt="" className="close_img" />
         </div>
-        <div className="popup_body_medium">
+        <div className="popup_body_fit">
           <div className="popup_body_header">결제정보 등록</div>
           <hr />
           <table className="payCard-insert">
