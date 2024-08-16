@@ -39,31 +39,31 @@ function SelectPayment({ period, prodNum, onClose }) {
     const formattedToday = today.toISOString(); // ISO 8601 형식
     const formattedDeliveryDate = deliveryDate.toISOString(); // ISO 8601 형식
 
-    console.log(period, payNum, prodNum);
-
-    axios
-      .post(
-        `/main/subscriptionInsert`,
-        {
-          subPer: period,
-          subStart: formattedToday,
-          subDeli: formattedDeliveryDate,
-          subStat: 1,
-          subUpd: formattedToday,
-          subCnt: 1,
-          prodNum: prodNum,
-          payNum: payNum,
-        },
-        { withCredentials: true }
-      )
-      .then((res) => {
-        alert('구독되었습니다.')
-        console.log(res);
-        onClose();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (window.confirm("구독 하시겠습니까?")) {
+      axios
+        .post(
+          `/main/subscriptionInsert`,
+          {
+            subPer: period,
+            subStart: formattedToday,
+            subDeli: formattedDeliveryDate,
+            subStat: 1,
+            subUpd: formattedToday,
+            subCnt: 1,
+            prodNum: prodNum,
+            payNum: payNum,
+          },
+          { withCredentials: true }
+        )
+        .then((res) => {
+          alert("구독되었습니다.");
+          console.log(res);
+          onClose();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }
 
   function addPayCard() {

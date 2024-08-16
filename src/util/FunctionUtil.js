@@ -6,6 +6,14 @@ export function truncateName(name, maxLength = 10) {
   return name;
 }
 
+// 긴 소개글 ... 처리
+export function truncateCont(name, maxLength = 20) {
+  if (name.length > maxLength) {
+    return name.slice(0, maxLength) + "...";
+  }
+  return name;
+}
+
 // 카테고리 이름
 export function categoryName(categoryNum) {
   switch (categoryNum) {
