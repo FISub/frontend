@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import "../assets/css/subscriptions.css";
 
@@ -24,6 +25,16 @@ const Subscriptions = () => {
     fetchSubscriptions();
   }, []);
 
+  const handleDelete = async (sub_num) => {
+    try {
+      await axios.delete(`/member/sublist/delete/${sub_num}`, { withCredentials: true });
+      setSubscriptions(subscriptions.filter(sub => sub.sub_num !== sub_num));
+    } catch (err) {
+      console.error("Error deleting subscription:", err);
+      setError(err);
+    }
+  };
+
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error fetching subscriptions.</div>;
 
@@ -39,23 +50,37 @@ const Subscriptions = () => {
             <th className="py-2 px-4 border-b">구독주기</th>
             <th className="py-2 px-4 border-b">배송출발예정일</th>
             <th className="py-2 px-4 border-b">구독횟수</th>     
-            <th className="py-2 px-4 border-b">상태</th>            
+            <th className="py-2 px-4 border-b">상태</th>
+            <th className="py-2 px-4 border-b">삭제</th>            
           </tr>
         </thead>
         <tbody>
-          {subscriptions.map((subscriptions) => (
-            <tr key={subscriptions.sub_num}>
-              <td className="py-2 px-4 border-b"><img src={subscriptions.imgURL} width="80" height="80" /></td>
-              <td className="py-2 px-4 border-b">{subscriptions.prodName}</td>
-              <td className="py-2 px-4 border-b">{subscriptions.subStart.split('T')[0]}</td>
-              <td className="py-2 px-4 border-b">{subscriptions.subPer + "일"}</td>
-              <td className="py-2 px-4 border-b">{subscriptions.subDeli.split('T')[0]}</td>
-              <td className="py-2 px-4 border-b">{subscriptions.subCnt + "회"}</td>
-              <td className="py-2 px-4 border-b">{subscriptions.subStat === 1 ? "배송중" 
-                : subscriptions.subStat === 2 ? "배송완료" 
-                : subscriptions.subStat === 3 ? "대기중" 
-                : "알 수 없음"}
-                </td>
+          {subscriptions.map((subscription) => (
+            <tr key={subscription.sub_num}>
+              <td className="py-2 px-4 border-b">
+                <img src={subscription.imgURL} width="80" height="80" alt="상품 이미지" />
+              </td>
+              <td className="py-2 px-4 border-b">
+                <Link className="color-green" to={`/products/${subscription.prodNum}`}>{subscription.prodName}</Link>
+              </td>
+              <td className="py-2 px-4 border-b">{subscription.subStart.split('T')[0]}</td>
+              <td className="py-2 px-4 border-b">{subscription.subPer + "일"}</td>
+              <td className="py-2 px-4 border-b">{subscription.subDeli.split('T')[0]}</td>
+              <td className="py-2 px-4 border-b">{subscription.subCnt + "회"}</td>
+              <td className="py-2 px-4 border-b">
+                {subscription.subStat === 1 ? "배송중" 
+                  : subscription.subStat === 2 ? "배송완료" 
+                  : subscription.subStat === 3 ? "대기중" 
+                  : "알 수 없음"}
+              </td>
+              <td className="py-2 px-4 border-b">
+                <button 
+                  onClick={() => handleDelete(subscription.sub_num)} 
+                  className="delete-button"
+                >
+                  삭제
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
