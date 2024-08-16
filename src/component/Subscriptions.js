@@ -41,7 +41,7 @@ const Subscriptions = () => {
                 <p>구독 배송일: {new Date(sub.subDeli).toLocaleDateString()}</p>
                 <p>구독 기간: {sub.subPer}개월</p>
                 <p>상품 번호: {sub.prodNum}</p>
-                <p>결제 번호: {sub.payNum}</p>
+                <p>결제 수단: {sub.payNum}</p>
               </div>
             </div>
           ))}
