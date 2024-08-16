@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from "react";
 import axios from "../../api/axios.js";
 import '../../assets/css/tableStyles.css';
-
+import { truncateCont, categoryName } from "../../util/FunctionUtil.js";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min.js";
 
 function ProductManage() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const history = useHistory();
+
+  const handleRowClick = (prodNum) => {
+    history.push(`/products/${prodNum}`); 
+  };
 
   useEffect(() => {
     axios
@@ -53,40 +59,36 @@ function ProductManage() {
   return (
     <div className="container mt-5 py-4 px-xl-5">
       <h3 className="text-2xl font-bold mt-5 mb-4">상품 관리</h3>
-      <table className="admin-table min-w-full bg-white border border-gray-300">
-        <thead className="admin-thead">
-          <tr className="admin-tr bg-gray-100">
-            <th className="admin-th py-2 px-4 border-b">번호</th>
-            <th className="admin-th py-2 px-4 border-b">사업자 번호</th>
-            <th className="admin-th py-2 px-4 border-b">카테고리</th>
-            <th className="admin-th py-2 px-4 border-b">이름</th>
-            <th className="admin-th py-2 px-4 border-b">가격</th>
-            <th className="admin-th py-2 px-4 border-b">이미지</th>
-            <th className="admin-th py-2 px-4 border-b">소개</th>
-            <th className="admin-th py-2 px-4 border-b">삭제</th>
+      <table className="common-table min-w-full bg-white border border-gray-300">
+        <thead className="common-thead">
+          <tr className="common-tr bg-gray-100">
+            <th className="common-th py-2  border-b common-num">번호</th>
+            <th className="common-th py-2  border-b common-memnum">사업자 번호</th>
+            <th className="common-th py-2  border-b common-category">카테고리</th>
+            <th className="common-th py-2  border-b common-prodname">이름</th>
+            <th className="common-th py-2  border-b common-prodprice">가격</th>
+            <th className="common-th py-2  border-b common-prodimg">이미지</th>
+            <th className="common-th py-2  border-b common-prodcont">소개</th>
+            <th className="common-th py-2  border-b common-delete">삭제</th>
           </tr>
         </thead>
-        <tbody className="admin-tbody">
-          {products.map((product) => (
-            <tr className="admin-tr" key={product.id}>
-              <td className="admin-td py-2 px-4 border-b">{product.prodNum}</td>
-              <td className="admin-td py-2 px-4 border-b">{product.memNum}</td>
-              <td className="admin-td py-2 px-4 border-b">
-                {product.prodCat === 0 ? "기타" 
-                : product.prodCat === 1 ? "비타민,미네랄" 
-                : product.prodCat === 2 ? "영양제" 
-                : product.prodCat === 3 ? "헬스,다이어트 식품" 
-                : "알 수 없음"}
+        <tbody className="common-tbody">
+          {products.map((product) => (            
+            <tr className="common-tr"  key={product.prodNum} onClick={() => handleRowClick(product.prodNum)}>
+              <td className="common-td py-2  border-b common-num">{product.prodNum}</td>
+              <td className="common-td py-2  border-b common-memnum">{product.memNum}</td>
+              <td className="common-td py-2 border-b common-category">
+                {categoryName(product.prodCat)}
               </td>
-              <td className="admin-td py-2 px-4 border-b">{product.prodName}</td>
-              <td className="admin-td py-2 px-4 border-b">{product.prodPrice}</td>
-              <td className="admin-td py-2 px-4 border-b">
-                <img src={product.prodImg} width="80" height="80" />
+              <td className="common-td py-2  border-b common-prodname">{product.prodName}</td>
+              <td className="common-td py-2  border-b common-prodprice">{product.prodPrice.toLocaleString()}원</td>
+              <td className="common-td py-2  border-b common-prodimg">
+                <img src={product.prodImg} alt="" width="80" height="80" />
               </td>
-              <td className="admin-td py-2 px-4 border-b">{product.prodIntro}</td>
-              <td className="admin-td py-2 px-4 border-b">
+              <td className="common-td py-2  border-b common-prodcont">{truncateCont(product.prodIntro)}</td>
+              <td className="common-td py-2  border-b common-delete">
                 <button
-                  className="admin-button"
+                  className="common-button" style={{width: '60px'}}
                   onClick={() => deleteProd(product.prodNum)}
                 >
                   삭제
