@@ -81,11 +81,11 @@ function SelectPayment({ period, prodNum, onClose }) {
 
   return (
     <div className="popup_container" onClick={onClose}>
-      <div className="popup_main_long" onClick={(e) => e.stopPropagation()}>
+      <div className="popup_main_fit" onClick={(e) => e.stopPropagation()}>
         <div className="close_popup" onClick={onClose}>
           <img src={close_window} alt="" className="close_img" />
         </div>
-        <div className="popup_body_long">
+        <div className="popup_body_fit">
           <div className="popup_body_header">결제 정보</div>
           <hr />
           <div className="payCard-box">
