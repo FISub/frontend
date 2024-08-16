@@ -57,7 +57,9 @@ function SelectPayment({ period, prodNum, onClose }) {
         { withCredentials: true }
       )
       .then((res) => {
+        alert('구독되었습니다.')
         console.log(res);
+        onClose();
       })
       .catch((err) => {
         console.log(err);
