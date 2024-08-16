@@ -9,10 +9,18 @@ function ProductRegister() {
   const [productImg, setProductImg] = useState('');
   const [productCat, setProductCat] = useState('0');  // 기본값 '기타'
 
+  const [loading, setLoading] = useState(false);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    setLoading(true); // 로딩 시작
+
     try {
+      // 1. 세션에서 memNum 가져오기
+      const sessionResponse = await axios.get('/auth/sessionInfo', { withCredentials: true });
+      const memNum = sessionResponse.memNum;
+
       // 백엔드에 POST 요청을 보냅니다.
       const response = await axios.post("/products", {
         prodName: productName,
@@ -20,7 +28,7 @@ function ProductRegister() {
         prodIntro: productIntro,
         prodImg: productImg,
         prodCat: productCat,
-        memNum: "mem0000001"
+        memNum: memNum
       });
 
       if (response.status === 200) {
@@ -34,6 +42,8 @@ function ProductRegister() {
     } catch (error) {
       console.error("Error registering product:", error);
       alert("상품 등록에 실패했습니다.");
+    } finally {
+      setLoading(false); // 로딩 종료
     }
   };
 
@@ -58,6 +68,7 @@ function ProductRegister() {
                   onChange={(e) => setProductName(e.target.value)}
                   required
                   className="form-control"
+                  disabled={loading} 
                 />
               </td>
             </tr>
@@ -70,6 +81,7 @@ function ProductRegister() {
                   onChange={(e) => setProductPrice(e.target.value)}
                   required
                   className="form-control"
+                  disabled={loading}
                 />
               </td>
             </tr>
@@ -81,6 +93,7 @@ function ProductRegister() {
                   onChange={(e) => setProductIntro(e.target.value)}
                   required
                   className="form-control"
+                  disabled={loading}
                 />
               </td>
             </tr>
@@ -93,6 +106,7 @@ function ProductRegister() {
                   onChange={(e) => setProductImg(e.target.value)}
                   required
                   className="form-control"
+                  disabled={loading}
                 />
               </td>
             </tr>
@@ -104,6 +118,7 @@ function ProductRegister() {
                   onChange={(e) => setProductCat(e.target.value)}
                   required
                   className="form-control"
+                  disabled={loading}
                 >
                   <option value="0">기타</option>
                   <option value="1">비타민,미네랄</option>
@@ -114,7 +129,9 @@ function ProductRegister() {
             </tr>
           </tbody>
         </table>
-        <button type="submit" className="btn btn-primary mt-3">등록</button>
+        <button type="submit" className="btn btn-primary mt-3" disabled={loading}>
+          {loading ? '등록 중...' : '등록'}
+        </button>
       </form>
     </div>
   );
