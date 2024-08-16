@@ -49,7 +49,7 @@ function ProductRegister() {
 
   return (
     <div className="product-register">
-      <h1>상품 등록</h1>
+      <h3 className="text-2xl font-bold mt-5 mb-4">상품 등록</h3>
       <form onSubmit={handleSubmit}>
         <table className="table table-bordered">
           <thead>
