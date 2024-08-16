@@ -60,7 +60,7 @@ const Subscriptions = () => {
         </thead>
         <tbody>
           {subscriptions.map((subscription) => (
-            <tr key={subscription.sub_num}>
+            <tr key={subscription.subNum}>
               <td className="py-2 px-4 border-b">
                 <img src={subscription.imgURL} width="80" height="80" alt="상품 이미지" />
               </td>
