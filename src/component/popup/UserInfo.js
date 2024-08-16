@@ -12,16 +12,11 @@ const UserInfo = ({ isOpen, onClose }) => {
 
   const fetchUserInfo = () => {
     axios
-      .get("/member/info/get", {}, { withCredentials: true })
+      .get("/member/info/get",{ withCredentials: true })
       .then((response) => {
         setUserInfo(response.data);
         setLoading(false);
       })
-      .catch((error) => {
-        console.error("Failed to fetch user info:", error);
-        setError("Failed to load user information.");
-        setLoading(false);
-      });
   };
 
   useEffect(() => {
