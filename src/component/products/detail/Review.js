@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "../../../api/axios.js";
 import { PiStarFill, PiStarLight } from "react-icons/pi";
 import useAuthStore from "../../../store/useAuthStore.js";
+import deleteReview from "../../../assets/img/delete.png";
 
 function Review({ prodNum }) {
   const [reviews, setReviews] = useState([]);
@@ -10,8 +11,9 @@ function Review({ prodNum }) {
     star: 0,
     content: "",
   });
-  const { isLogin } = useAuthStore((state) => ({
+  const { isLogin, memberInfo } = useAuthStore((state) => ({
     isLogin: state.isLogin,
+    memberInfo: state.memberInfo,
   }));
 
   useEffect(() => {
@@ -53,6 +55,20 @@ function Review({ prodNum }) {
       alert('로그인 후 이용해 주세요.');
     }
   };
+
+  function deleteRev(revNum){
+    axios.post(`/main/reviewDelete`, {
+      revNum : revNum,
+      prodNum : prodNum
+    }, { withCredentials: true })
+      .then((res) => {
+        setReviews((prev) => prev.filter(review => review.revNum !== revNum));
+        alert('삭제되었습니다.');
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
 
   return (
     <div>
@@ -108,12 +124,28 @@ function Review({ prodNum }) {
           <div
             key={review.revNum}
             className="review-card mb-3 p-3 border rounded"
+            style={{ backgroundColor: "#f9f9f9", color: "#333" }}
           >
-            {review.memName}, {review.revStar}, {review.revCont}
+            <div className="d-flex align-items-center mb-2">
+              <div>
+                {[...Array(5)].map((_, i) => (
+                  <span key={i} style={{ color: i < review.revStar ? "#FFD700" : "#e4e5e9" }}>
+                    <PiStarFill />
+                  </span>
+                ))}
+              </div>
+              <span style={{ marginLeft: '10px', fontWeight: 'bold' }}>{review.memName}</span>
+            </div>
+            <div style={{display: 'flex', justifyContent:'space-between'}}>
+            <p>{review.revCont}</p>
+            {(memberInfo && (memberInfo.memType === 9 || review.memNum === memberInfo.memNum) && (
+            <img src={deleteReview} alt="" style={{width:'30px', height:'30px', opacity: '0.3', cursor:'pointer'}} onClick={() => deleteRev(review.revNum)}/>
+            ))}
+            </div>
           </div>
         ))
       ) : (
-        <p>No reviews available.</p>
+        <p>리뷰가 없습니다.</p>
       )}
     </div>
   );

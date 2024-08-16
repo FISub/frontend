@@ -51,17 +51,17 @@ function ProductRegister() {
     <div className="product-register">
       <h3 className="text-2xl font-bold mt-5 mb-4">상품 등록</h3>
       <form onSubmit={handleSubmit}>
-        <table className="table table-bordered">
-          <thead>
-            <tr>
-              <th>필드</th>
-              <th>입력 값</th>
+        <table className="common-table table table-bordered">
+          <thead className="common-thead">
+            <tr className="common-tr bg-gray-100">
+              <th className="common-th py-2 px-4 border-b">필드</th>
+              <th className="common-th py-2 px-4 border-b">입력 값</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>상품 이름</td>
-              <td>
+          <tbody className="common-tbody">
+            <tr className="common-tr">
+              <th className="common-th py-2 px-4 border-b">상품 이름</th>
+              <td className="common-td py-2 px-4 border-b">
                 <input
                   type="text"
                   value={productName}
@@ -72,9 +72,9 @@ function ProductRegister() {
                 />
               </td>
             </tr>
-            <tr>
-              <td>상품 가격</td>
-              <td>
+            <tr className="common-tr">
+              <th className="common-th py-2 px-4 border-b">상품 가격</th>
+              <td className="common-td py-2 px-4 border-b">
                 <input
                   type="number"
                   value={productPrice}
@@ -85,34 +85,35 @@ function ProductRegister() {
                 />
               </td>
             </tr>
-            <tr>
-              <td>상품 소개</td>
-              <td>
+            <tr className="common-tr">
+              <th className="common-th py-2 px-4 border-b">상품 소개</th>
+              <td className="common-td py-2 px-4 border-b">
                 <textarea
                   value={productIntro}
                   onChange={(e) => setProductIntro(e.target.value)}
                   required
                   className="form-control"
+                  style={{resize:'none', minHeight: '200px'}}
                   disabled={loading}
                 />
               </td>
             </tr>
-            <tr>
-              <td>상품 이미지 URL</td>
-              <td>
+            <tr className="common-tr">
+              <th className="common-th py-2 px-4 border-b">상품 이미지 URL</th>
+              <td className="common-td py-2 px-4 border-b">
                 <input
                   type="text"
                   value={productImg}
                   onChange={(e) => setProductImg(e.target.value)}
                   required
-                  className="form-control"
+                  className="form-control"                  
                   disabled={loading}
                 />
               </td>
             </tr>
-            <tr>
-              <td>상품 카테고리</td>
-              <td>
+            <tr className="common-tr">
+              <th className="common-th py-2 px-4 border-b">상품 카테고리</th>
+              <td className="common-td py-2 px-4 border-b">
                 <select
                   value={productCat}
                   onChange={(e) => setProductCat(e.target.value)}
