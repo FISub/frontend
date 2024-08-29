@@ -72,5 +72,5 @@
     "webpack": "^5.93.0",
     "webpack-dev-server": "^5.0.4"
   },
-  "proxy": "http://localhost:8080"
+  "proxy": "https://localhost:8080"
 }
