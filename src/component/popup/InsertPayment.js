@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "../../assets/css/payCard.css";
 import "../../assets/css/popup.css";
 import axios from "../../api/axios.js";
@@ -14,6 +14,14 @@ function InsertPayment({ onClose, onPaymentAdded }) {
   const [cvc, setCvc] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+
+  const cardNumber2Ref = useRef(null);
+  const cardNumber3Ref = useRef(null);
+  const cardNumber4Ref = useRef(null);
+  const expiryMonthRef = useRef(null);
+  const expiryYearRef = useRef(null);
+  const cvcRef = useRef(null);
+  const passwordRef = useRef(null);
 
   const regixForCardNum = /^\d{4}$/;
   const regixForCvc = /^\d{3}$/;
@@ -62,6 +70,16 @@ function InsertPayment({ onClose, onPaymentAdded }) {
     return true;
   }
 
+  useEffect(() => {
+    if (cardNumber1.length === 4) cardNumber2Ref.current.focus();
+    if (cardNumber2.length === 4) cardNumber3Ref.current.focus();
+    if (cardNumber3.length === 4) cardNumber4Ref.current.focus();
+    if (cardNumber4.length === 4) expiryMonthRef.current.focus();
+    if (expiryMonth.length === 2) expiryYearRef.current.focus();
+    if (expiryYear.length === 2) cvcRef.current.focus();
+    if (cvc.length === 3) passwordRef.current.focus();
+  }, [cardNumber1, cardNumber2, cardNumber3, cardNumber4, expiryMonth, expiryYear, cvc]);
+
   const handleSubmit = () => {
     if (validatePayment()) {
       axios
@@ -76,10 +94,14 @@ function InsertPayment({ onClose, onPaymentAdded }) {
           { withCredentials: true }
         )
         .then((res) => {
-          console.log("결제 정보 등록 성공:", res);
-          alert('결제 정보를 등록하였습니다.')
-          onPaymentAdded();
-          onClose();
+          if(res === 1){
+            console.log("결제 정보 등록 성공:", res);
+            alert('결제 정보를 등록하였습니다.');
+            onPaymentAdded();
+            onClose();
+          } else{
+            alert('결제 정보 등록에 실패하였습니다. 다시 시도해 주세요.');
+          }
         })
         .catch((err) => {
           console.log("결제 정보 등록 실패:", err);
@@ -105,25 +127,30 @@ function InsertPayment({ onClose, onPaymentAdded }) {
                     maxLength="4"
                     value={cardNumber1}
                     onChange={(e) => setCardNumber1(e.target.value)}
-                  ></input>{" "}
+                    ></input>{" "}
                   -{" "}
                   <input
                     maxLength="4"
                     value={cardNumber2}
                     onChange={(e) => setCardNumber2(e.target.value)}
-                  ></input>{" "}
+                    ref={cardNumber2Ref}
+                    ></input>{" "}
                   -{" "}
                   <input
                     maxLength="4"
+                    type="password"
                     value={cardNumber3}
                     onChange={(e) => setCardNumber3(e.target.value)}
-                  ></input>{" "}
+                    ref={cardNumber3Ref}
+                    ></input>{" "}
                   -{" "}
                   <input
                     maxLength="4"
+                    type="password"
                     value={cardNumber4}
                     onChange={(e) => setCardNumber4(e.target.value)}
-                  ></input>
+                    ref={cardNumber4Ref}
+                    ></input>
                 </td>
               </tr>
               <tr className="payCard-insert-tr">
@@ -133,13 +160,15 @@ function InsertPayment({ onClose, onPaymentAdded }) {
                     maxLength="2"
                     value={expiryMonth}
                     onChange={(e) => setExpiryMonth(e.target.value)}
-                  ></input>{" "}
+                    ref={expiryMonthRef}
+                    ></input>{" "}
                   /{" "}
                   <input
                     maxLength="2"
                     value={expiryYear}
                     onChange={(e) => setExpiryYear(e.target.value)}
-                  ></input>
+                    ref={expiryYearRef}
+                    ></input>
                 </td>
               </tr>
               <tr className="payCard-insert-tr">
@@ -147,9 +176,11 @@ function InsertPayment({ onClose, onPaymentAdded }) {
                 <td className="payCard-insert-td">
                   <input
                     maxLength="3"
+                    type="password"
                     value={cvc}
                     onChange={(e) => setCvc(e.target.value)}
-                  ></input>
+                    ref={cvcRef}
+                    ></input>
                 </td>
               </tr>
               <tr className="payCard-insert-tr">
@@ -159,6 +190,7 @@ function InsertPayment({ onClose, onPaymentAdded }) {
                     maxLength="2"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    ref={passwordRef}
                   ></input>
                   <span style={{ alignContent: "center", fontSize: "20px" }}>
                     **
