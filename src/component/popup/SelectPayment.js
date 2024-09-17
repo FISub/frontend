@@ -5,7 +5,6 @@ import "../../assets/css/popup.css";
 import close_window from "../../assets/img/close-window.png";
 import card from "../../assets/img/default_card.png";
 import plus from "../../assets/img/plus_white.png";
-import formatCardNumber from "../../util/FunctionUtil.js";
 import InsertPayment from "./InsertPayment";
 
 function SelectPayment({ period, prodNum, onClose }) {
@@ -97,8 +96,11 @@ function SelectPayment({ period, prodNum, onClose }) {
                     onClick={() => subscription(period, payCard.payNum)}
                   >
                     <img src={card} alt="" className="payCard-image" />
-                    <div className="payCard-text">
-                      {formatCardNumber(payCard.payCard)}{" "}
+                    <div className="payCard-num">
+                      {payCard.payCard}
+                    </div>
+                    <div className="payCard-brand">
+                      {payCard.payBrand}
                     </div>
                   </div>
                   <hr />

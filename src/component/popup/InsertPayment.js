@@ -11,8 +11,6 @@ function InsertPayment({ onClose, onPaymentAdded }) {
   const [cardNumber4, setCardNumber4] = useState("");
   const [expiryMonth, setExpiryMonth] = useState("");
   const [expiryYear, setExpiryYear] = useState("");
-  const [cvc, setCvc] = useState("");
-  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
   const cardNumber2Ref = useRef(null);
@@ -20,11 +18,8 @@ function InsertPayment({ onClose, onPaymentAdded }) {
   const cardNumber4Ref = useRef(null);
   const expiryMonthRef = useRef(null);
   const expiryYearRef = useRef(null);
-  const cvcRef = useRef(null);
-  const passwordRef = useRef(null);
 
   const regixForCardNum = /^\d{4}$/;
-  const regixForCvc = /^\d{3}$/;
   const regixForMonthYearPw = /^\d{2}$/;
 
   function validatePayment() {    
@@ -57,15 +52,6 @@ function InsertPayment({ onClose, onPaymentAdded }) {
       return false;
     }
 
-    if (!regixForCvc.test(cvc)) {
-      setError("CVC는 3자리 숫자여야 합니다.");
-      return false;
-    }
-
-    if (!regixForMonthYearPw.test(password)) {
-      setError("비밀번호는 2자리 숫자여야 합니다.");
-      return false;
-    }
     setError(""); // 오류 메시지 초기화
     return true;
   }
@@ -76,9 +62,7 @@ function InsertPayment({ onClose, onPaymentAdded }) {
     if (cardNumber3.length === 4) cardNumber4Ref.current.focus();
     if (cardNumber4.length === 4) expiryMonthRef.current.focus();
     if (expiryMonth.length === 2) expiryYearRef.current.focus();
-    if (expiryYear.length === 2) cvcRef.current.focus();
-    if (cvc.length === 3) passwordRef.current.focus();
-  }, [cardNumber1, cardNumber2, cardNumber3, cardNumber4, expiryMonth, expiryYear, cvc]);
+  }, [cardNumber1, cardNumber2, cardNumber3, cardNumber4, expiryMonth, expiryYear]);
 
   const handleSubmit = () => {
     if (validatePayment()) {
@@ -88,8 +72,6 @@ function InsertPayment({ onClose, onPaymentAdded }) {
           {
             payCard: cardNumber1 + cardNumber2 + cardNumber3 + cardNumber4,
             payExp: `${expiryMonth}/${expiryYear}`,
-            payCvc: cvc,
-            payPw: password,
           },
           { withCredentials: true }
         )
@@ -169,32 +151,6 @@ function InsertPayment({ onClose, onPaymentAdded }) {
                     onChange={(e) => setExpiryYear(e.target.value)}
                     ref={expiryYearRef}
                     ></input>
-                </td>
-              </tr>
-              <tr className="payCard-insert-tr">
-                <th className="payCard-insert-th">CVC</th>
-                <td className="payCard-insert-td">
-                  <input
-                    maxLength="3"
-                    type="password"
-                    value={cvc}
-                    onChange={(e) => setCvc(e.target.value)}
-                    ref={cvcRef}
-                    ></input>
-                </td>
-              </tr>
-              <tr className="payCard-insert-tr">
-                <th className="payCard-insert-th">비밀번호</th>
-                <td className="payCard-insert-td">
-                  <input
-                    maxLength="2"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    ref={passwordRef}
-                  ></input>
-                  <span style={{ alignContent: "center", fontSize: "20px" }}>
-                    **
-                  </span>
                 </td>
               </tr>
             </tbody>
