@@ -44,11 +44,11 @@ function Header() {
       .then((res) => {
         console.log(res);
         logoutAuth();
-        history.push('/');
       })
       .catch((err) => {
         console.log(err);
       });
+      
   }
 
   return (
@@ -82,7 +82,7 @@ function Header() {
               className="navbar-nav mb-lg-0 navbar-margin-right"
               style={{ fontSize: "20px", fontWeight: "bolder" }}
             >
-              {memberInfo && memberInfo.memType !== 2 && (
+              {memberInfo && memberInfo.memType !== '2' && (
                 <li className="nav-item">
                   <a
                     href="!#"
@@ -129,7 +129,7 @@ function Header() {
               className="navbar-nav mb-lg-0 navbar-margin-right"
               style={{ fontSize: "20px", fontWeight: "bolder" }}
             >
-              {memberInfo && memberInfo.memType === 9 && (
+              {memberInfo && memberInfo.memType === '9' && (
                 <li className="nav-item">
                   <a
                     href="!#"
