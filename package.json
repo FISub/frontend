@@ -13,7 +13,7 @@
     "@testing-library/user-event": "^12.8.3",
     "axios": "^1.7.3",
     "bootstrap": "^5.0.1",
-    "firebase": "^10.13.0",
+    "firebase": "^10.13.1",
     "js-cookie": "^3.0.5",
     "react": "^17.0.2",
     "react-bootstrap": "^2.10.4",
@@ -72,5 +72,5 @@
     "webpack": "^5.93.0",
     "webpack-dev-server": "^5.0.4"
   },
-  "proxy": "https://localhost:8080"
+  "proxy": "https://localhost:8443"
 }
