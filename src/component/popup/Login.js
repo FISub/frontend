@@ -22,16 +22,26 @@ export default function Login({ isOpen, onClose }) {
 
   function login() {
     axios
-      .post("/auth/login", { id, pw }, { withCredentials: true })
+      .post("/auth/login", new URLSearchParams({ username: id, password: pw }), {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        withCredentials: true // 쿠키를 포함시킬 경우 필요
+      })
       .then((res) => {
-        const { memNum, memId, memType } = res;
-        loginAuth({ memNum, memId, memType });
-        onClose();
+        if (res) {
+          const { memNum, memId, memType } = res;
+          loginAuth({ memNum, memId, memType });
+          onClose();
+        } else {
+          console.error("Response data is missing.");
+        }
       })
       .catch((err) => {
+        console.error("Error:", err);
         setError("로그인에 실패했습니다. 아이디와 비밀번호를 확인하세요.");
       });
-  }
+    }
 
   function handleKeyDown(e) {
     if (e.key === "Enter") {
