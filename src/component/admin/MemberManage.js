@@ -12,7 +12,6 @@ function MemberManage() {
     axios
       .get(`/admin/memberAll` , { withCredentials: true })
       .then((res) => {
-        console.log(res)
         setMembers(res);
         setLoading(false);
       })
