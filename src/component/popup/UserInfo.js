@@ -70,7 +70,6 @@ const UserInfo = ({ isOpen, onClose }) => {
           <hr />
           <div className="userinfo_popup_content">
             <p><strong>ID:</strong> {userInfo.memId}</p>
-            <p><strong>Password:</strong> {userInfo.memPw}</p>
             <p><strong>Name:</strong> {userInfo.memName}</p>
             <p><strong>Email:</strong> {userInfo.memEmail}</p>
             <p><strong>Phone:</strong> {userInfo.memPhone}</p>
