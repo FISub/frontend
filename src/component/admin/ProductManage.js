@@ -16,7 +16,7 @@ function ProductManage() {
 
   useEffect(() => {
     axios
-      .get(`/admin/productAll`)
+      .get(`/admin/productAll`, { withCredentials: true })
       .then((res) => {
         setProducts(res);
         setLoading(false);

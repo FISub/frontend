@@ -10,7 +10,7 @@ function MemberManage() {
 
   useEffect(() => {
     axios
-      .get(`/admin/memberAll`)
+      .get(`/admin/memberAll` , { withCredentials: true })
       .then((res) => {
         setMembers(res);
         setLoading(false);
@@ -70,7 +70,7 @@ function MemberManage() {
           </tr>
         </thead>
         <tbody className="common-tbody">
-          {members.map((member) => (
+          {members.length > 0 ? ( members.map((member) => (
             <tr className="common-tr" key={member.id}>
               <td className="common-td py-2 px-4 border-b">{member.memNum}</td>
               <td className="common-td py-2 px-4 border-b">
@@ -95,7 +95,9 @@ function MemberManage() {
                 </button>
               </td>
             </tr>
-          ))}
+          ))) :(
+            <></>
+          )}
         </tbody>
       </table>
     </div>
