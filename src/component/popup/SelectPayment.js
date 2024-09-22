@@ -21,7 +21,7 @@ function SelectPayment({ period, prodNum, onClose }) {
 
   const fetchPayments = () => {
     axios
-      .get(`/main/paymentAllByMember`, { withCredentials: true })
+      .get(`/subscription/paymentAllByMember`, { withCredentials: true })
       .then((res) => {
         setPayment(res);
       })
@@ -41,7 +41,7 @@ function SelectPayment({ period, prodNum, onClose }) {
     if (window.confirm("구독 하시겠습니까?")) {
       axios
         .post(
-          `/main/subscriptionInsert`,
+          `/subscription/subscriptionInsert`,
           {
             subPer: period,
             subStart: formattedToday,

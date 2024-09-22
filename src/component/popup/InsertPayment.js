@@ -68,7 +68,7 @@ function InsertPayment({ onClose, onPaymentAdded }) {
     if (validatePayment()) {
       axios
         .post(
-          `/main/paymentInsert`,
+          `/subscription/paymentInsert`,
           {
             payCard: cardNumber1 + cardNumber2 + cardNumber3 + cardNumber4,
             payExp: `${expiryMonth}/${expiryYear}`,
