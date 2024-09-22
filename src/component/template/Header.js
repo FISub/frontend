@@ -44,6 +44,7 @@ function Header() {
       .then((res) => {
         console.log(res);
         logoutAuth();
+        history.push("/"); // 메인 화면으로 리디렉션
       })
       .catch((err) => {
         console.log(err);
