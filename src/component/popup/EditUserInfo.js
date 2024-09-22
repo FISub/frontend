@@ -5,7 +5,7 @@ import "../../assets/css/userInfoPopup.css";
 import close_window from "../../assets/img/close-window.png";
 
 const EditUserInfo = ({ userInfo, onClose }) => {
-  const [id, setId] = useState(userInfo.memId);
+  const [id] = useState(userInfo.memId);
   const [pw, setPw] = useState(userInfo.memPw);
   const [confirmPw, setConfirmPw] = useState(userInfo.memPw); // 비밀번호 확인 추가
   const [name, setName] = useState(userInfo.memName);
@@ -58,7 +58,6 @@ const EditUserInfo = ({ userInfo, onClose }) => {
       .put(
         "/member/info/update",
         {
-          memId: id,
           memPw: pw,
           memName: name,
           memEmail: email,
@@ -75,8 +74,14 @@ const EditUserInfo = ({ userInfo, onClose }) => {
         onClose(); // Close the popup
       })
       .catch((error) => {
-        console.error("업데이트 하는데 실패하였습니다.", error);
-        setError("중복된 id입니다.");
+        if (error.response){
+          console.log(error.response.data.message);
+          setError(error.response.data.message)
+        } else{
+          console.error("업데이트 하는데 실패하였습니다.", error.message);
+          setError("업데이트 실패");
+        }
+        
       });
   };
 
@@ -91,12 +96,7 @@ const EditUserInfo = ({ userInfo, onClose }) => {
           <hr />
           <div className="userinfo_popup_content">
             <label htmlFor="id">ID:</label>
-            <input
-              id="id"
-              type="text"
-              value={id}
-              onChange={(e) => setId(e.target.value)}
-            />
+              <p id="id">{id}</p>
             <label htmlFor="pw">Password:</label>
             <input
               id="pw"

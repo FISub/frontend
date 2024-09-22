@@ -92,8 +92,13 @@ export default function Signup({ isOpen, onClose }) {
         alert("회원가입 완료 , 해당 계정으로 로그인 해 주세요.");
         onClose();
       })
-      .catch(() => {
-        setError("중복된 id입니다.");
+      .catch((error) => {
+        if(error.response){
+          setError(error.response.data.message);
+        } else {
+          setError("회원가입 실패.");
+        }
+        
       });
   }
 
